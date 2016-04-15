@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" 
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core" 
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition template="/WEB-INF/facelets/templates/defaultLayout.xhtml">
+
+        <ui:define name="content">
+            <h:form id="formPersona">
+                <p:growl id="growl" showDetail="false" sticky="true" autoUpdate="true"/> 
+
+                <p:panel header="Ingrese su número de documento">
+                    <h:panelGrid id="grid" columns="2" cellpadding="5">
+                        <h:outputLabel for="cedula" value="Cedula(*):" style="font-weight:bold"/>                    
+                        <p:inputText id="cedula" 
+                                     label="Cedula"
+                                     required="true"
+                                     value="#{seManejadorPrincipalMb.cedulaFormPersona}"
+                                     disabled="false"
+                                     style="width:100%;">
+                        </p:inputText>
+
+
+                        <h:outputLabel for="tipoDoc" value="Tipo de Documento(*):" style="font-weight:bold"/> 
+                        <p:selectOneMenu id="tipoDoc" 
+                                         value="#{seManejadorPrincipalMb.tipoDocFormPersona}" 
+                                         label="Tipo de Documento"
+                                         effect="none"
+                                         disabled="#{sisManejadorPrincipalMb.bloquearCamposFormPersona}"
+                                         required="true"
+                                         style="width:100%;">
+                            <f:selectItems value="#{seManejadorPrincipalMb.listaTipoDocumentos}" 
+                                           var="tipoDoc"
+                                           itemValue="#{tipoDoc.indTipdocide}" 
+                                           itemLabel="#{tipoDoc.desTipdocide}"/>
+                        </p:selectOneMenu>
+                        <p:commandButton id="crear"
+                                         value="Buscar"
+                                         title="Buscar"
+                                         icon="fa fa-check-square-o" 
+                                         rendered="true"
+                                         action="#{seManejadorPrincipalMb.btnBuscarPorCedulaTipoDoc()}"
+                                         style="margin-right:10px"/>
+
+                    </h:panelGrid>
+
+                    <h:panelGrid columns="1" cellpadding="5">
+                        <h:outputLabel value="Tenga en cuenta que los campos con * son obligatorios" 
+                                       style="font-weight:bold; color: #ff0000; font-size: small"/>                    
+
+                    </h:panelGrid>
+
+                </p:panel>
+            </h:form>
+        </ui:define>
+
+    </ui:composition>
+</html>
+
+

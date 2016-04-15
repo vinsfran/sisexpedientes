@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" 
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core" 
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition template="/WEB-INF/facelets/templates/defaultLayout.xhtml">
+
+        <ui:define name="content">
+            <h:form>
+                <p:dataTable id="dataTableExpediente" 
+                             var="expediente" 
+                             value="#{seManejadorPrincipalMb.listaExpedientes}" 
+                             widgetVar="carsTable"
+                             emptyMessage="No existen datos para mostrar" 
+                             filteredValue="#{dtFilterView.filteredCars}"
+                             paginator="false"
+                             paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                             rowsPerPageTemplate="5,10,15"
+                             resizableColumns="true">
+
+                    <f:facet name="header">
+                        <div align="center" >
+                            <h:outputText value="Seleccione un expediente"/>
+                        </div>
+                    </f:facet>
+                    <p:column headerText="Nro Expediente - Año" >
+                        <h:outputText value="#{expediente.semexpedientePK.nroExpediente} - #{expediente.semexpedientePK.indEjefisexp}"/>
+                    </p:column>
+                    <p:column headerText="Descripción" >
+                        <h:outputText value="#{expediente.desExpediente}"/>
+                    </p:column>
+                    <p:column headerText="Ubicación actual" >
+                        <h:outputText value="#{expediente.codDepen.desDepen}"/>
+                    </p:column>
+                    <p:column headerText="Fecha ultimo movimiento" >
+                        <h:outputText value="#{expediente.fecUltmov}">
+                            <f:convertDateTime pattern="dd/MM/yyyy" />
+                        </h:outputText>
+                    </p:column>
+
+                    <p:column style="text-align: center" headerText="Acciones">
+                        <p:commandButton value="Ver Movimientos" 
+                                         title="Ver Movimientos"
+                                         icon="fa fa-eye"
+                                         rendered="true"                                             
+                                         action="#{seManejadorPrincipalMb.btnSeleccionarExpediente(expediente.semexpedientePK.nroExpediente, expediente.semexpedientePK.indEjefisexp)}"
+                                         style="margin-right: 2px;"/>
+                    </p:column>
+
+
+                </p:dataTable>
+            </h:form>
+        </ui:define>
+
+    </ui:composition>
+</html>
+

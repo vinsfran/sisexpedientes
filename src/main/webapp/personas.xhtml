@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" 
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core" 
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition template="/WEB-INF/facelets/templates/defaultLayout.xhtml">
+
+        <ui:define name="content">
+            <h:form>
+                <p:dataTable id="dataTablePersona" 
+                             var="persona" 
+                             value="#{seManejadorPrincipalMb.listaPersonas}" 
+                             widgetVar="carsTable"
+                             emptyMessage="No existen datos para mostrar" 
+                             filteredValue="#{dtFilterView.filteredCars}"
+                             paginator="false"
+                             paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                             rowsPerPageTemplate="5,10,15"
+                             resizableColumns="true">
+
+                    <f:facet name="header">
+                        <div align="center" >
+                            <h:outputText value="Personas"/>
+                        </div>
+                    </f:facet>
+                    <p:column headerText="Documento" >
+                        <h:outputText value="#{persona.sempersonaPK.nroDocide}"/>
+                    </p:column>
+                    <p:column headerText="Tipo Doc" >
+                        <h:outputText value="#{persona.sebtipdocide.desTipdocide}"/>
+                    </p:column>
+                    <p:column headerText="Nombre" >
+                        <h:outputText value="#{persona.desPersona}"/>
+                    </p:column>
+                    <p:column headerText="Dirección" >
+                        <h:outputText value="#{persona.dirPrincipal}"/>
+                    </p:column>
+                    <p:column style="text-align: center" headerText="Acciones">
+                        <p:commandButton value="Ver expedientes" 
+                                         title="Ver expedientes"
+                                         icon="fa fa-eye"
+                                         rendered="true"                                             
+                                         action="#{seManejadorPrincipalMb.btnSeleccionarPersona(persona.nroPersona)}"
+                                         style="margin-right: 2px;"/>
+                    </p:column>
+                </p:dataTable>
+            </h:form>
+        </ui:define>
+
+    </ui:composition>
+</html>

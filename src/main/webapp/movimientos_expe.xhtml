@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" 
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core" 
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition template="/WEB-INF/facelets/templates/defaultLayout.xhtml">
+
+        <ui:define name="content">
+            <h:form>
+                <p:panel header="Resultado de la busqueda">
+                    <div align="left" >
+                        <h:panelGrid columns="2" border="0">
+
+                            <p:outputLabel value="N° Exp. / Año:" style="font-weight:bold"/>
+                            <p:outputLabel value="#{seManejadorPrincipalMb.semexpediente.nroCarpeta} / #{seManejadorPrincipalMb.semexpediente.indEjefiscar}"/>
+                            <p:outputLabel value="Nro. Documento:" style="font-weight:bold"/>
+                            <p:outputLabel value="#{seManejadorPrincipalMb.sempersona.sempersonaPK.nroDocide}"/>
+                            <p:outputLabel value="Recurrente:" style="font-weight:bold"/>
+                            <p:outputLabel value="#{seManejadorPrincipalMb.sempersona.desPersona}"/>
+                            <p:outputLabel value=" Des. Exp.:" style="font-weight:bold"/>
+                            <p:outputLabel value="#{seManejadorPrincipalMb.semexpediente.desExpediente}"/>
+                            <p:outputLabel value="Estado:" style="font-weight:bold"/>
+                            <p:outputLabel value="#{seManejadorPrincipalMb.semexpediente.nroEstexp.desEstexp}"/>
+
+                        </h:panelGrid>
+                    </div>
+                </p:panel>
+                <p:dataTable id="dataTableMoviExpe" 
+                             var="moviExpe" 
+                             value="#{seManejadorPrincipalMb.listaMovExpedientes}" 
+                             widgetVar="carsTable"
+                             emptyMessage="No existen datos para mostrar" 
+                             filteredValue="#{dtFilterView.filteredCars}"
+                             paginator="false"
+                             paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                             rowsPerPageTemplate="5,10,15"
+                             resizableColumns="true">
+
+                    <f:facet name="header">
+
+                        <div align="center" >
+                            <h:outputText value="Movimientos del Expediente"/>
+
+                        </div>
+
+                    </f:facet>
+                    <p:column headerText="Dependencia">
+                        <h:outputText value="#{moviExpe.codDepen.desDepen}"/>
+                    </p:column>
+                    <p:column headerText="Movimiento" >
+                        <h:outputText value="#{moviExpe.nroTipmov.desTipmov}"/>
+                    </p:column>
+                    <p:column headerText="Fecha">
+                        <h:outputText value="#{moviExpe.fecMovexp}">
+                            <f:convertDateTime pattern="dd/MM/yyyy" />
+                        </h:outputText>
+                    </p:column>
+                </p:dataTable>
+                <br/>
+                <p:commandButton value="Volver" 
+                                 action="expedientes" 
+                                 icon="fa fa-arrow-left"
+                                 rendered="#{seManejadorPrincipalMb.mostrarBtnVolverListaExpedientes}"/>
+            </h:form>
+        </ui:define>
+
+    </ui:composition>
+</html>

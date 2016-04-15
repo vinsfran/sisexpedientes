@@ -1,0 +1,66 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui">
+
+    <f:view contentType="text/html">
+        <h:head>
+            <f:facet name="first">
+                <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+                <meta name="viewport" content="width=device-width, initial-scale=1" />
+                <meta content="text/html; charset=UTF-8" http-equiv="Content-Type" />
+                <link rel="shortcut icon" href="resources/img/favicon.ico" />
+                <title>Consulta de Expedientes</title>
+            </f:facet>
+        </h:head>
+
+        <h:body>
+
+            <p:layout fullPage="true">
+                <p:layoutUnit position="north" resizable="false" closable="false" collapsible="false" style="border: 0px">
+                    <div align="center">
+                        <h:panelGrid columns="2" border="0">
+                            <h:graphicImage library="img" name="logo.png"/>                            
+                            <h1>&nbsp;Sistema de Consulta de Expedientes</h1>
+                            <h2>&nbsp;Dirección de Recaudaciones</h2>
+                            
+                        </h:panelGrid>
+                    </div>
+                </p:layoutUnit>
+                <p:layoutUnit position="center" resizable="false" closable="false" collapsible="false" style="border: 0px">
+                    <div align="center">
+                        <ui:include src="menu.xhtml" />
+                        <ui:insert name="content">
+                            <span>Página en construcción</span>
+                        </ui:insert>
+                    </div>
+
+                </p:layoutUnit>
+                <p:layoutUnit position="south" style="border: 0px">
+                    <table width="50%" border="0" align="center" cellpadding="0" cellspacing="0">
+                        <tr>
+                            <td width="100%">
+                                <p id="pie" align="center">
+                                    © #{seManejadorPrincipalMb.anioActual} <a target="_blank" href="http://www.mca.gov.py/" title="Municipalidad de Asunción">Municipalidad de Asunción</a>. Todos los derechos reservados.
+                                    <br/>
+                                    <i class="fa fa-map-marker"></i>  Avda. Mcal. López 5556 esq. Cap. Bueno
+                                    <br/>
+                                    <i class="fa fa-phone-square"></i> +595 21 663 311/20
+                                    <br/>
+                                    Asunción - Paraguay
+                                </p>
+                            </td>
+                        </tr>
+                    </table>
+                </p:layoutUnit>
+
+
+            </p:layout>
+
+        </h:body>
+
+    </f:view>
+</html>
+
