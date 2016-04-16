@@ -32,7 +32,7 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Sebtipdocide.findAll", query = "SELECT s FROM Sebtipdocide s"),
     @NamedQuery(name = "Sebtipdocide.findByIndTipdocide", query = "SELECT s FROM Sebtipdocide s WHERE s.indTipdocide = :indTipdocide"),
     @NamedQuery(name = "Sebtipdocide.findByDesTipdocide", query = "SELECT s FROM Sebtipdocide s WHERE s.desTipdocide = :desTipdocide")})
-public class Sebtipdocide implements Serializable {
+public class Sebtipdocide2 implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -45,12 +45,12 @@ public class Sebtipdocide implements Serializable {
     @Column(name = "des_tipdocide")
     private String desTipdocide;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "indTipdocide")
-    private List<Sempersona> sempersonaList;
+    private List<Sempersona2> sempersonaList;
 
-    public Sebtipdocide() {
+    public Sebtipdocide2() {
     }
 
-    public Sebtipdocide(String indTipdocide) {
+    public Sebtipdocide2(String indTipdocide) {
         this.indTipdocide = indTipdocide;
     }
 
@@ -71,11 +71,11 @@ public class Sebtipdocide implements Serializable {
     }
 
     @XmlTransient
-    public List<Sempersona> getSempersonaList() {
+    public List<Sempersona2> getSempersonaList() {
         return sempersonaList;
     }
 
-    public void setSempersonaList(List<Sempersona> sempersonaList) {
+    public void setSempersonaList(List<Sempersona2> sempersonaList) {
         this.sempersonaList = sempersonaList;
     }
 
@@ -89,10 +89,10 @@ public class Sebtipdocide implements Serializable {
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Sebtipdocide)) {
+        if (!(object instanceof Sebtipdocide2)) {
             return false;
         }
-        Sebtipdocide other = (Sebtipdocide) object;
+        Sebtipdocide2 other = (Sebtipdocide2) object;
         if ((this.indTipdocide == null && other.indTipdocide != null) || (this.indTipdocide != null && !this.indTipdocide.equals(other.indTipdocide))) {
             return false;
         }

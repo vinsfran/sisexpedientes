@@ -31,7 +31,7 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Sebtipmov.findAll", query = "SELECT s FROM Sebtipmov s"),
     @NamedQuery(name = "Sebtipmov.findByNroTipmov", query = "SELECT s FROM Sebtipmov s WHERE s.nroTipmov = :nroTipmov"),
     @NamedQuery(name = "Sebtipmov.findByDesTipmov", query = "SELECT s FROM Sebtipmov s WHERE s.desTipmov = :desTipmov")})
-public class Sebtipmov implements Serializable {
+public class Sebtipmov2 implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -43,12 +43,12 @@ public class Sebtipmov implements Serializable {
     @Column(name = "des_tipmov")
     private String desTipmov;
     @OneToMany(mappedBy = "nroTipmov")
-    private List<Sedmovexp> sedmovexpList;
+    private List<Sedmovexp2> sedmovexpList;
 
-    public Sebtipmov() {
+    public Sebtipmov2() {
     }
 
-    public Sebtipmov(Integer nroTipmov) {
+    public Sebtipmov2(Integer nroTipmov) {
         this.nroTipmov = nroTipmov;
     }
 
@@ -69,11 +69,11 @@ public class Sebtipmov implements Serializable {
     }
 
     @XmlTransient
-    public List<Sedmovexp> getSedmovexpList() {
+    public List<Sedmovexp2> getSedmovexpList() {
         return sedmovexpList;
     }
 
-    public void setSedmovexpList(List<Sedmovexp> sedmovexpList) {
+    public void setSedmovexpList(List<Sedmovexp2> sedmovexpList) {
         this.sedmovexpList = sedmovexpList;
     }
 
@@ -87,10 +87,10 @@ public class Sebtipmov implements Serializable {
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Sebtipmov)) {
+        if (!(object instanceof Sebtipmov2)) {
             return false;
         }
-        Sebtipmov other = (Sebtipmov) object;
+        Sebtipmov2 other = (Sebtipmov2) object;
         if ((this.nroTipmov == null && other.nroTipmov != null) || (this.nroTipmov != null && !this.nroTipmov.equals(other.nroTipmov))) {
             return false;
         }

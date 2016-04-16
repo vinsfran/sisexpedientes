@@ -34,7 +34,7 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Sempersona.findByNroDocide", query = "SELECT s FROM Sempersona s WHERE s.nroDocide = :nroDocide"),
     @NamedQuery(name = "Sempersona.findByObsPersona", query = "SELECT s FROM Sempersona s WHERE s.obsPersona = :obsPersona"),
     @NamedQuery(name = "Sempersona.findByNroPersona", query = "SELECT s FROM Sempersona s WHERE s.nroPersona = :nroPersona")})
-public class Sempersona implements Serializable {
+public class Sempersona2 implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Basic(optional = false)
@@ -51,25 +51,25 @@ public class Sempersona implements Serializable {
     @Column(name = "nro_persona")
     private Integer nroPersona;
     @OneToMany(mappedBy = "nroTitular")
-    private List<Semexpediente> semexpedienteList;
+    private List<Semexpediente2> semexpedienteList;
     @OneToMany(mappedBy = "nroRepresentante")
-    private List<Semexpediente> semexpedienteList1;
+    private List<Semexpediente2> semexpedienteList1;
     @OneToMany(mappedBy = "nroFuncionario")
-    private List<Semexpediente> semexpedienteList2;
+    private List<Semexpediente2> semexpedienteList2;
     @OneToMany(mappedBy = "nroFuncionario")
-    private List<Sedmovexp> sedmovexpList;
+    private List<Sedmovexp2> sedmovexpList;
     @JoinColumn(name = "ind_tipdocide", referencedColumnName = "ind_tipdocide")
     @ManyToOne(optional = false)
-    private Sebtipdocide indTipdocide;
+    private Sebtipdocide2 indTipdocide;
 
-    public Sempersona() {
+    public Sempersona2() {
     }
 
-    public Sempersona(Integer nroPersona) {
+    public Sempersona2(Integer nroPersona) {
         this.nroPersona = nroPersona;
     }
 
-    public Sempersona(Integer nroPersona, String nroDocide) {
+    public Sempersona2(Integer nroPersona, String nroDocide) {
         this.nroPersona = nroPersona;
         this.nroDocide = nroDocide;
     }
@@ -99,46 +99,46 @@ public class Sempersona implements Serializable {
     }
 
     @XmlTransient
-    public List<Semexpediente> getSemexpedienteList() {
+    public List<Semexpediente2> getSemexpedienteList() {
         return semexpedienteList;
     }
 
-    public void setSemexpedienteList(List<Semexpediente> semexpedienteList) {
+    public void setSemexpedienteList(List<Semexpediente2> semexpedienteList) {
         this.semexpedienteList = semexpedienteList;
     }
 
     @XmlTransient
-    public List<Semexpediente> getSemexpedienteList1() {
+    public List<Semexpediente2> getSemexpedienteList1() {
         return semexpedienteList1;
     }
 
-    public void setSemexpedienteList1(List<Semexpediente> semexpedienteList1) {
+    public void setSemexpedienteList1(List<Semexpediente2> semexpedienteList1) {
         this.semexpedienteList1 = semexpedienteList1;
     }
 
     @XmlTransient
-    public List<Semexpediente> getSemexpedienteList2() {
+    public List<Semexpediente2> getSemexpedienteList2() {
         return semexpedienteList2;
     }
 
-    public void setSemexpedienteList2(List<Semexpediente> semexpedienteList2) {
+    public void setSemexpedienteList2(List<Semexpediente2> semexpedienteList2) {
         this.semexpedienteList2 = semexpedienteList2;
     }
 
     @XmlTransient
-    public List<Sedmovexp> getSedmovexpList() {
+    public List<Sedmovexp2> getSedmovexpList() {
         return sedmovexpList;
     }
 
-    public void setSedmovexpList(List<Sedmovexp> sedmovexpList) {
+    public void setSedmovexpList(List<Sedmovexp2> sedmovexpList) {
         this.sedmovexpList = sedmovexpList;
     }
 
-    public Sebtipdocide getIndTipdocide() {
+    public Sebtipdocide2 getIndTipdocide() {
         return indTipdocide;
     }
 
-    public void setIndTipdocide(Sebtipdocide indTipdocide) {
+    public void setIndTipdocide(Sebtipdocide2 indTipdocide) {
         this.indTipdocide = indTipdocide;
     }
 
@@ -152,10 +152,10 @@ public class Sempersona implements Serializable {
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Sempersona)) {
+        if (!(object instanceof Sempersona2)) {
             return false;
         }
-        Sempersona other = (Sempersona) object;
+        Sempersona2 other = (Sempersona2) object;
         if ((this.nroPersona == null && other.nroPersona != null) || (this.nroPersona != null && !this.nroPersona.equals(other.nroPersona))) {
             return false;
         }

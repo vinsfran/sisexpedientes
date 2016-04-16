@@ -31,7 +31,7 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Sebestexp.findAll", query = "SELECT s FROM Sebestexp s"),
     @NamedQuery(name = "Sebestexp.findByNroEstexp", query = "SELECT s FROM Sebestexp s WHERE s.nroEstexp = :nroEstexp"),
     @NamedQuery(name = "Sebestexp.findByDesEstexp", query = "SELECT s FROM Sebestexp s WHERE s.desEstexp = :desEstexp")})
-public class Sebestexp implements Serializable {
+public class Sebestexp2 implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -43,14 +43,14 @@ public class Sebestexp implements Serializable {
     @Column(name = "des_estexp")
     private String desEstexp;
     @OneToMany(mappedBy = "nroEstexp")
-    private List<Semexpediente> semexpedienteList;
+    private List<Semexpediente2> semexpedienteList;
     @OneToMany(mappedBy = "nroEstexp")
-    private List<Sedmovexp> sedmovexpList;
+    private List<Sedmovexp2> sedmovexpList;
 
-    public Sebestexp() {
+    public Sebestexp2() {
     }
 
-    public Sebestexp(Integer nroEstexp) {
+    public Sebestexp2(Integer nroEstexp) {
         this.nroEstexp = nroEstexp;
     }
 
@@ -71,20 +71,20 @@ public class Sebestexp implements Serializable {
     }
 
     @XmlTransient
-    public List<Semexpediente> getSemexpedienteList() {
+    public List<Semexpediente2> getSemexpedienteList() {
         return semexpedienteList;
     }
 
-    public void setSemexpedienteList(List<Semexpediente> semexpedienteList) {
+    public void setSemexpedienteList(List<Semexpediente2> semexpedienteList) {
         this.semexpedienteList = semexpedienteList;
     }
 
     @XmlTransient
-    public List<Sedmovexp> getSedmovexpList() {
+    public List<Sedmovexp2> getSedmovexpList() {
         return sedmovexpList;
     }
 
-    public void setSedmovexpList(List<Sedmovexp> sedmovexpList) {
+    public void setSedmovexpList(List<Sedmovexp2> sedmovexpList) {
         this.sedmovexpList = sedmovexpList;
     }
 
@@ -98,10 +98,10 @@ public class Sebestexp implements Serializable {
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Sebestexp)) {
+        if (!(object instanceof Sebestexp2)) {
             return false;
         }
-        Sebestexp other = (Sebestexp) object;
+        Sebestexp2 other = (Sebestexp2) object;
         if ((this.nroEstexp == null && other.nroEstexp != null) || (this.nroEstexp != null && !this.nroEstexp.equals(other.nroEstexp))) {
             return false;
         }

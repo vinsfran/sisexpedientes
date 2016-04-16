@@ -31,7 +31,7 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Semdepen.findAll", query = "SELECT s FROM Semdepen s"),
     @NamedQuery(name = "Semdepen.findByCodDepen", query = "SELECT s FROM Semdepen s WHERE s.codDepen = :codDepen"),
     @NamedQuery(name = "Semdepen.findByDesDepen", query = "SELECT s FROM Semdepen s WHERE s.desDepen = :desDepen")})
-public class Semdepen implements Serializable {
+public class Semdepen2 implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -44,14 +44,14 @@ public class Semdepen implements Serializable {
     @Column(name = "des_depen")
     private String desDepen;
     @OneToMany(mappedBy = "codDepen")
-    private List<Semexpediente> semexpedienteList;
+    private List<Semexpediente2> semexpedienteList;
     @OneToMany(mappedBy = "codDepen")
-    private List<Sedmovexp> sedmovexpList;
+    private List<Sedmovexp2> sedmovexpList;
 
-    public Semdepen() {
+    public Semdepen2() {
     }
 
-    public Semdepen(String codDepen) {
+    public Semdepen2(String codDepen) {
         this.codDepen = codDepen;
     }
 
@@ -72,20 +72,20 @@ public class Semdepen implements Serializable {
     }
 
     @XmlTransient
-    public List<Semexpediente> getSemexpedienteList() {
+    public List<Semexpediente2> getSemexpedienteList() {
         return semexpedienteList;
     }
 
-    public void setSemexpedienteList(List<Semexpediente> semexpedienteList) {
+    public void setSemexpedienteList(List<Semexpediente2> semexpedienteList) {
         this.semexpedienteList = semexpedienteList;
     }
 
     @XmlTransient
-    public List<Sedmovexp> getSedmovexpList() {
+    public List<Sedmovexp2> getSedmovexpList() {
         return sedmovexpList;
     }
 
-    public void setSedmovexpList(List<Sedmovexp> sedmovexpList) {
+    public void setSedmovexpList(List<Sedmovexp2> sedmovexpList) {
         this.sedmovexpList = sedmovexpList;
     }
 
@@ -99,10 +99,10 @@ public class Semdepen implements Serializable {
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Semdepen)) {
+        if (!(object instanceof Semdepen2)) {
             return false;
         }
-        Semdepen other = (Semdepen) object;
+        Semdepen2 other = (Semdepen2) object;
         if ((this.codDepen == null && other.codDepen != null) || (this.codDepen != null && !this.codDepen.equals(other.codDepen))) {
             return false;
         }

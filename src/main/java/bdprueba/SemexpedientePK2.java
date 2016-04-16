@@ -16,7 +16,7 @@ import javax.validation.constraints.NotNull;
  * @author vinsfran
  */
 @Embeddable
-public class SemexpedientePK implements Serializable {
+public class SemexpedientePK2 implements Serializable {
 
     @Basic(optional = false)
     @NotNull
@@ -27,10 +27,10 @@ public class SemexpedientePK implements Serializable {
     @Column(name = "ind_ejefisexp")
     private int indEjefisexp;
 
-    public SemexpedientePK() {
+    public SemexpedientePK2() {
     }
 
-    public SemexpedientePK(int nroExpediente, int indEjefisexp) {
+    public SemexpedientePK2(int nroExpediente, int indEjefisexp) {
         this.nroExpediente = nroExpediente;
         this.indEjefisexp = indEjefisexp;
     }
@@ -62,10 +62,10 @@ public class SemexpedientePK implements Serializable {
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof SemexpedientePK)) {
+        if (!(object instanceof SemexpedientePK2)) {
             return false;
         }
-        SemexpedientePK other = (SemexpedientePK) object;
+        SemexpedientePK2 other = (SemexpedientePK2) object;
         if (this.nroExpediente != other.nroExpediente) {
             return false;
         }

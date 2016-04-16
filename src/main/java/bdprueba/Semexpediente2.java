@@ -29,94 +29,94 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Semexpediente.findAll", query = "SELECT s FROM Semexpediente s"),
     @NamedQuery(name = "Semexpediente.findByNroExpediente", query = "SELECT s FROM Semexpediente s WHERE s.semexpedientePK.nroExpediente = :nroExpediente"),
     @NamedQuery(name = "Semexpediente.findByIndEjefisexp", query = "SELECT s FROM Semexpediente s WHERE s.semexpedientePK.indEjefisexp = :indEjefisexp")})
-public class Semexpediente implements Serializable {
+public class Semexpediente2 implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @EmbeddedId
-    protected SemexpedientePK semexpedientePK;
+    protected SemexpedientePK2 semexpedientePK;
     @JoinColumn(name = "nro_estexp", referencedColumnName = "nro_estexp")
     @ManyToOne
-    private Sebestexp nroEstexp;
+    private Sebestexp2 nroEstexp;
     @JoinColumn(name = "cod_depen", referencedColumnName = "cod_depen")
     @ManyToOne
-    private Semdepen codDepen;
+    private Semdepen2 codDepen;
     @JoinColumn(name = "nro_titular", referencedColumnName = "nro_persona")
     @ManyToOne
-    private Sempersona nroTitular;
+    private Sempersona2 nroTitular;
     @JoinColumn(name = "nro_representante", referencedColumnName = "nro_persona")
     @ManyToOne
-    private Sempersona nroRepresentante;
+    private Sempersona2 nroRepresentante;
     @JoinColumn(name = "nro_funcionario", referencedColumnName = "nro_persona")
     @ManyToOne
-    private Sempersona nroFuncionario;
+    private Sempersona2 nroFuncionario;
     @OneToMany(mappedBy = "semexpediente")
-    private List<Sedmovexp> sedmovexpList;
+    private List<Sedmovexp2> sedmovexpList;
 
-    public Semexpediente() {
+    public Semexpediente2() {
     }
 
-    public Semexpediente(SemexpedientePK semexpedientePK) {
+    public Semexpediente2(SemexpedientePK2 semexpedientePK) {
         this.semexpedientePK = semexpedientePK;
     }
 
-    public Semexpediente(int nroExpediente, int indEjefisexp) {
-        this.semexpedientePK = new SemexpedientePK(nroExpediente, indEjefisexp);
+    public Semexpediente2(int nroExpediente, int indEjefisexp) {
+        this.semexpedientePK = new SemexpedientePK2(nroExpediente, indEjefisexp);
     }
 
-    public SemexpedientePK getSemexpedientePK() {
+    public SemexpedientePK2 getSemexpedientePK() {
         return semexpedientePK;
     }
 
-    public void setSemexpedientePK(SemexpedientePK semexpedientePK) {
+    public void setSemexpedientePK(SemexpedientePK2 semexpedientePK) {
         this.semexpedientePK = semexpedientePK;
     }
 
-    public Sebestexp getNroEstexp() {
+    public Sebestexp2 getNroEstexp() {
         return nroEstexp;
     }
 
-    public void setNroEstexp(Sebestexp nroEstexp) {
+    public void setNroEstexp(Sebestexp2 nroEstexp) {
         this.nroEstexp = nroEstexp;
     }
 
-    public Semdepen getCodDepen() {
+    public Semdepen2 getCodDepen() {
         return codDepen;
     }
 
-    public void setCodDepen(Semdepen codDepen) {
+    public void setCodDepen(Semdepen2 codDepen) {
         this.codDepen = codDepen;
     }
 
-    public Sempersona getNroTitular() {
+    public Sempersona2 getNroTitular() {
         return nroTitular;
     }
 
-    public void setNroTitular(Sempersona nroTitular) {
+    public void setNroTitular(Sempersona2 nroTitular) {
         this.nroTitular = nroTitular;
     }
 
-    public Sempersona getNroRepresentante() {
+    public Sempersona2 getNroRepresentante() {
         return nroRepresentante;
     }
 
-    public void setNroRepresentante(Sempersona nroRepresentante) {
+    public void setNroRepresentante(Sempersona2 nroRepresentante) {
         this.nroRepresentante = nroRepresentante;
     }
 
-    public Sempersona getNroFuncionario() {
+    public Sempersona2 getNroFuncionario() {
         return nroFuncionario;
     }
 
-    public void setNroFuncionario(Sempersona nroFuncionario) {
+    public void setNroFuncionario(Sempersona2 nroFuncionario) {
         this.nroFuncionario = nroFuncionario;
     }
 
     @XmlTransient
-    public List<Sedmovexp> getSedmovexpList() {
+    public List<Sedmovexp2> getSedmovexpList() {
         return sedmovexpList;
     }
 
-    public void setSedmovexpList(List<Sedmovexp> sedmovexpList) {
+    public void setSedmovexpList(List<Sedmovexp2> sedmovexpList) {
         this.sedmovexpList = sedmovexpList;
     }
 
@@ -130,10 +130,10 @@ public class Semexpediente implements Serializable {
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Semexpediente)) {
+        if (!(object instanceof Semexpediente2)) {
             return false;
         }
-        Semexpediente other = (Semexpediente) object;
+        Semexpediente2 other = (Semexpediente2) object;
         if ((this.semexpedientePK == null && other.semexpedientePK != null) || (this.semexpedientePK != null && !this.semexpedientePK.equals(other.semexpedientePK))) {
             return false;
         }

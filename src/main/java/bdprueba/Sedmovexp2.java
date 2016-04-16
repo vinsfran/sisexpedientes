@@ -40,7 +40,7 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "Sedmovexp.findByNroTarea", query = "SELECT s FROM Sedmovexp s WHERE s.nroTarea = :nroTarea"),
     @NamedQuery(name = "Sedmovexp.findByUsuAlta", query = "SELECT s FROM Sedmovexp s WHERE s.usuAlta = :usuAlta"),
     @NamedQuery(name = "Sedmovexp.findByFecAlta", query = "SELECT s FROM Sedmovexp s WHERE s.fecAlta = :fecAlta")})
-public class Sedmovexp implements Serializable {
+public class Sedmovexp2 implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -67,26 +67,26 @@ public class Sedmovexp implements Serializable {
     private Date fecAlta;
     @JoinColumn(name = "nro_estexp", referencedColumnName = "nro_estexp")
     @ManyToOne
-    private Sebestexp nroEstexp;
+    private Sebestexp2 nroEstexp;
     @JoinColumn(name = "nro_tipmov", referencedColumnName = "nro_tipmov")
     @ManyToOne
-    private Sebtipmov nroTipmov;
+    private Sebtipmov2 nroTipmov;
     @JoinColumn(name = "cod_depen", referencedColumnName = "cod_depen")
     @ManyToOne
-    private Semdepen codDepen;
+    private Semdepen2 codDepen;
     @JoinColumns({
         @JoinColumn(name = "nro_expediente", referencedColumnName = "nro_expediente"),
         @JoinColumn(name = "ind_ejefisexp", referencedColumnName = "ind_ejefisexp")})
     @ManyToOne
-    private Semexpediente semexpediente;
+    private Semexpediente2 semexpediente;
     @JoinColumn(name = "nro_funcionario", referencedColumnName = "nro_persona")
     @ManyToOne
-    private Sempersona nroFuncionario;
+    private Sempersona2 nroFuncionario;
 
-    public Sedmovexp() {
+    public Sedmovexp2() {
     }
 
-    public Sedmovexp(Integer nroSecuencia) {
+    public Sedmovexp2(Integer nroSecuencia) {
         this.nroSecuencia = nroSecuencia;
     }
 
@@ -154,43 +154,43 @@ public class Sedmovexp implements Serializable {
         this.fecAlta = fecAlta;
     }
 
-    public Sebestexp getNroEstexp() {
+    public Sebestexp2 getNroEstexp() {
         return nroEstexp;
     }
 
-    public void setNroEstexp(Sebestexp nroEstexp) {
+    public void setNroEstexp(Sebestexp2 nroEstexp) {
         this.nroEstexp = nroEstexp;
     }
 
-    public Sebtipmov getNroTipmov() {
+    public Sebtipmov2 getNroTipmov() {
         return nroTipmov;
     }
 
-    public void setNroTipmov(Sebtipmov nroTipmov) {
+    public void setNroTipmov(Sebtipmov2 nroTipmov) {
         this.nroTipmov = nroTipmov;
     }
 
-    public Semdepen getCodDepen() {
+    public Semdepen2 getCodDepen() {
         return codDepen;
     }
 
-    public void setCodDepen(Semdepen codDepen) {
+    public void setCodDepen(Semdepen2 codDepen) {
         this.codDepen = codDepen;
     }
 
-    public Semexpediente getSemexpediente() {
+    public Semexpediente2 getSemexpediente() {
         return semexpediente;
     }
 
-    public void setSemexpediente(Semexpediente semexpediente) {
+    public void setSemexpediente(Semexpediente2 semexpediente) {
         this.semexpediente = semexpediente;
     }
 
-    public Sempersona getNroFuncionario() {
+    public Sempersona2 getNroFuncionario() {
         return nroFuncionario;
     }
 
-    public void setNroFuncionario(Sempersona nroFuncionario) {
+    public void setNroFuncionario(Sempersona2 nroFuncionario) {
         this.nroFuncionario = nroFuncionario;
     }
 
@@ -204,10 +204,10 @@ public class Sedmovexp implements Serializable {
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Sedmovexp)) {
+        if (!(object instanceof Sedmovexp2)) {
             return false;
         }
-        Sedmovexp other = (Sedmovexp) object;
+        Sedmovexp2 other = (Sedmovexp2) object;
         if ((this.nroSecuencia == null && other.nroSecuencia != null) || (this.nroSecuencia != null && !this.nroSecuencia.equals(other.nroSecuencia))) {
             return false;
         }
