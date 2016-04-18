@@ -269,6 +269,7 @@ public class Semexpediente implements Serializable {
         this.nroTitular = nroTitular;
     }
 
+    //@XmlTransient
     public Sempersona getNroTitularJava() {
         return nroTitularJava;
     }
@@ -285,6 +286,7 @@ public class Semexpediente implements Serializable {
         this.nroRepresentante = nroRepresentante;
     }
 
+    //@XmlTransient
     public Sempersona getNroRepresentanteJava() {
         return nroRepresentanteJava;
     }
@@ -301,6 +303,7 @@ public class Semexpediente implements Serializable {
         this.nroFuncionario = nroFuncionario;
     }
 
+    //@XmlTransient
     public Sempersona getNroFuncionarioJava() {
         return nroFuncionarioJava;
     }
