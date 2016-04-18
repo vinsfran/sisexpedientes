@@ -88,9 +88,11 @@ public class SisExpedientesWS {
     @Path("/listarPersonas")
     @Produces({MediaType.APPLICATION_JSON})
     public List<Sempersona> listarPersonas() {
-        listaPersonas = sempersonaCrud.listarPorNroDocideIndTipdocide("3834015", "CIPN");
+        //listaPersonas = sempersonaCrud.listarPorNroDocideIndTipdocide("3834015", "CIPN");
+        listaPersonas = sempersonaCrud.listarPorNroDocideIndTipdocide("1682320", "CIPN");
         
-        List<Sempersona> listarPersonaAux = sempersonaCrud.listarPorNroDocideIndTipdocide("3834015", "CIPN");
+        
+       /* List<Sempersona> listarPersonaAux = sempersonaCrud.listarPorNroDocideIndTipdocide("3834015", "CIPN");
 
         setListaPersonas(sempersonaCrud.listarPorNroDocideIndTipdocide("3834015", "CIPN"));
         List<Persona> listaPer = new ArrayList<>();
@@ -189,7 +191,7 @@ public class SisExpedientesWS {
                 perAux.getListaExpedientesDelTitular().add(expAux);
             }
             listaPer.add(perAux);
-        }
+        }*/
         return listaPersonas;
     }
     

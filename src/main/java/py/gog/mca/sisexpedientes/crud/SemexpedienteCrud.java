@@ -63,7 +63,7 @@ public class SemexpedienteCrud {
         } else {
             List<Semexpediente> listaExpedientes = q.getResultList();
             for (Semexpediente listaExpediente : listaExpedientes) {
-                listaExpediente.setNroTitularJava(consultarPorNroPersona(listaExpediente.getNroTitular()));
+                listaExpediente.setNroTitular(consultarPorNroPersona(listaExpediente.getNroTitular().getNroPersona()));
                 listaExpediente.setSedmovexpList(listarMovimientosExpedientePorNroCarpetaEjerFiscal(listaExpediente.getSemexpedientePK().getNroExpediente(), listaExpediente.getSemexpedientePK().getIndEjefisexp()));
             }
             return listaExpedientes;

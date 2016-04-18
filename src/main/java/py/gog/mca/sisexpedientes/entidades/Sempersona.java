@@ -9,19 +9,24 @@ import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 import javax.persistence.Basic;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
+import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.persistence.Transient;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 
@@ -30,17 +35,20 @@ import javax.xml.bind.annotation.XmlTransient;
  * @author vinsfran
  */
 @Entity
-@Table(name="sempersona")
+@Table(name = "sempersona")
 
 @XmlRootElement
+@XmlAccessorType(XmlAccessType.PUBLIC_MEMBER)
 @NamedQueries({
     @NamedQuery(name = "Sempersona.findAll", query = "SELECT s FROM Sempersona s"),
+    @NamedQuery(name = "Sempersona.findByNroPersona", query = "SELECT s FROM Sempersona s WHERE s.nroPersona = :nroPersona"),
+    @NamedQuery(name = "Sempersona.findByNroDocide", query = "SELECT s FROM Sempersona s WHERE s.nroDocide = :nroDocide"),
+    @NamedQuery(name = "Sempersona.findByIndTipdocide", query = "SELECT s FROM Sempersona s WHERE s.indTipdocide = :indTipdocide"),
     @NamedQuery(name = "Sempersona.findByObsPersona", query = "SELECT s FROM Sempersona s WHERE s.obsPersona = :obsPersona"),
     @NamedQuery(name = "Sempersona.findByIndTipper", query = "SELECT s FROM Sempersona s WHERE s.indTipper = :indTipper"),
     @NamedQuery(name = "Sempersona.findByEmailPrincipal", query = "SELECT s FROM Sempersona s WHERE s.emailPrincipal = :emailPrincipal"),
     @NamedQuery(name = "Sempersona.findByIndSexo", query = "SELECT s FROM Sempersona s WHERE s.indSexo = :indSexo"),
     @NamedQuery(name = "Sempersona.findByUsuAlta", query = "SELECT s FROM Sempersona s WHERE s.usuAlta = :usuAlta"),
-    @NamedQuery(name = "Sempersona.findByNroDocide", query = "SELECT s FROM Sempersona s WHERE s.sempersonaPK.nroDocide = :nroDocide"),
     @NamedQuery(name = "Sempersona.findByTelPrincipal", query = "SELECT s FROM Sempersona s WHERE s.telPrincipal = :telPrincipal"),
     @NamedQuery(name = "Sempersona.findByFecUltmod", query = "SELECT s FROM Sempersona s WHERE s.fecUltmod = :fecUltmod"),
     @NamedQuery(name = "Sempersona.findByNomFantasia", query = "SELECT s FROM Sempersona s WHERE s.nomFantasia = :nomFantasia"),
@@ -48,24 +56,32 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Sempersona.findByDesPersona", query = "SELECT s FROM Sempersona s WHERE s.desPersona = :desPersona"),
     @NamedQuery(name = "Sempersona.findByDirPrincipal", query = "SELECT s FROM Sempersona s WHERE s.dirPrincipal = :dirPrincipal"),
     @NamedQuery(name = "Sempersona.findByIndEstciv", query = "SELECT s FROM Sempersona s WHERE s.indEstciv = :indEstciv"),
-    @NamedQuery(name = "Sempersona.findByFecAlta", query = "SELECT s FROM Sempersona s WHERE s.fecAlta = :fecAlta"),
-    @NamedQuery(name = "Sempersona.findByIndTipdocide", query = "SELECT s FROM Sempersona s WHERE s.sempersonaPK.indTipdocide = :indTipdocide"),
-    @NamedQuery(name = "Sempersona.findByFecNaccon", query = "SELECT s FROM Sempersona s WHERE s.fecNaccon = :fecNaccon"),
-    @NamedQuery(name = "Sempersona.findByNroPersona", query = "SELECT s FROM Sempersona s WHERE s.nroPersona = :nroPersona"),
+    @NamedQuery(name = "Sempersona.findByFecAlta", query = "SELECT s FROM Sempersona s WHERE s.fecAlta = :fecAlta"),    
+    @NamedQuery(name = "Sempersona.findByFecNaccon", query = "SELECT s FROM Sempersona s WHERE s.fecNaccon = :fecNaccon"),    
     @NamedQuery(name = "Sempersona.findByIndTipsoc", query = "SELECT s FROM Sempersona s WHERE s.indTipsoc = :indTipsoc"),
     @NamedQuery(name = "Sempersona.findByIndActivo", query = "SELECT s FROM Sempersona s WHERE s.indActivo = :indActivo")})
 public class Sempersona implements Serializable {
 
     private static final long serialVersionUID = 1L;
-    
-    @EmbeddedId
-    protected SempersonaPK sempersonaPK;
-    
+
+    @Id
     @Basic(optional = false)
     @NotNull
     @Column(name = "nro_persona")
     private int nroPersona;
-    
+
+    @Basic(optional = false)
+    @NotNull
+    @Size(min = 1, max = 20)
+    @Column(name = "nro_docide")
+    private String nroDocide;
+
+    @Basic(optional = false)
+    @NotNull
+    @Size(min = 1, max = 10)
+    @Column(name = "ind_tipdocide")
+    private String indTipdocide;
+
     @JoinColumn(name = "ind_tipdocide", referencedColumnName = "ind_tipdocide", nullable = false, insertable = false, updatable = false)
     @ManyToOne
     private Sebtipdocide sebtipdocide;
@@ -150,32 +166,25 @@ public class Sempersona implements Serializable {
     @Column(name = "ind_activo")
     private String indActivo;
 
-    //@OneToMany(cascade = CascadeType.ALL, mappedBy = "nroTitular")
-    @Transient
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "nroTitular")
     private List<Semexpediente> semexpedienteListNroTitular;
-    
-    //@OneToMany(cascade = CascadeType.ALL, mappedBy = "nroRepresentante")
-    @Transient
+
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "nroRepresentante")
     private List<Semexpediente> semexpedienteListNroRepresentante;
-    
-    //@OneToMany(cascade = CascadeType.ALL, mappedBy = "nroFuncionario")
-    @Transient
+
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "nroFuncionario")
     private List<Semexpediente> semexpedienteListNroFuncionario;
-    
-    //@OneToMany(cascade = CascadeType.ALL, mappedBy = "nroFuncionario")
-    @Transient
+
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "nroFuncionario")
     private List<Sedmovexp> sedmovexpListNroFuncionario;
 
     public Sempersona() {
     }
 
-    public Sempersona(SempersonaPK sempersonaPK) {
-        this.sempersonaPK = sempersonaPK;
-    }
-
-    public Sempersona(SempersonaPK sempersonaPK, int nroPersona, String indTipper, String emailPrincipal, String indSexo, String usuAlta, String telPrincipal, Date fecUltmod, String nomFantasia, String usuUltmod, String desPersona, String dirPrincipal, String indEstciv, Date fecAlta, Date fecNaccon, String indTipsoc, String indActivo) {
-        this.sempersonaPK = sempersonaPK;
+    public Sempersona(int nroPersona, String nroDocide, String indTipdocide, String indTipper, String emailPrincipal, String indSexo, String usuAlta, String telPrincipal, Date fecUltmod, String nomFantasia, String usuUltmod, String desPersona, String dirPrincipal, String indEstciv, Date fecAlta, Date fecNaccon, String indTipsoc, String indActivo) {
         this.nroPersona = nroPersona;
+        this.nroDocide = nroDocide;
+        this.indTipdocide = indTipdocide;
         this.indTipper = indTipper;
         this.emailPrincipal = emailPrincipal;
         this.indSexo = indSexo;
@@ -193,24 +202,28 @@ public class Sempersona implements Serializable {
         this.indActivo = indActivo;
     }
 
-    public Sempersona(String nroDocide, String indTipdocide) {
-        this.sempersonaPK = new SempersonaPK(nroDocide, indTipdocide);
-    }
-
-    public SempersonaPK getSempersonaPK() {
-        return sempersonaPK;
-    }
-
-    public void setSempersonaPK(SempersonaPK sempersonaPK) {
-        this.sempersonaPK = sempersonaPK;
-    }
-        
     public int getNroPersona() {
         return nroPersona;
     }
 
     public void setNroPersona(int nroPersona) {
         this.nroPersona = nroPersona;
+    }
+
+    public String getNroDocide() {
+        return nroDocide;
+    }
+
+    public void setNroDocide(String nroDocide) {
+        this.nroDocide = nroDocide;
+    }
+
+    public String getIndTipdocide() {
+        return indTipdocide;
+    }
+
+    public void setIndTipdocide(String indTipdocide) {
+        this.indTipdocide = indTipdocide;
     }
 
     public String getObsPersona() {
@@ -341,7 +354,7 @@ public class Sempersona implements Serializable {
         this.indActivo = indActivo;
     }
 
-    public Sebtipdocide getSebtipdocide() {
+    public Sebtipdocide getSebtipdocide() { 
         return sebtipdocide;
     }
 
@@ -349,7 +362,7 @@ public class Sempersona implements Serializable {
         this.sebtipdocide = sebtipdocide;
     }
 
-    //@XmlTransient
+    @XmlTransient
     public List<Semexpediente> getSemexpedienteListNroTitular() {
         return semexpedienteListNroTitular;
     }
@@ -358,7 +371,7 @@ public class Sempersona implements Serializable {
         this.semexpedienteListNroTitular = semexpedienteListNroTitular;
     }
 
-    //@XmlTransient
+    @XmlTransient
     public List<Semexpediente> getSemexpedienteListNroRepresentante() {
         return semexpedienteListNroRepresentante;
     }
@@ -367,7 +380,7 @@ public class Sempersona implements Serializable {
         this.semexpedienteListNroRepresentante = semexpedienteListNroRepresentante;
     }
 
-    //@XmlTransient
+    @XmlTransient
     public List<Semexpediente> getSemexpedienteListNroFuncionario() {
         return semexpedienteListNroFuncionario;
     }
@@ -376,7 +389,7 @@ public class Sempersona implements Serializable {
         this.semexpedienteListNroFuncionario = semexpedienteListNroFuncionario;
     }
 
-    //@XmlTransient
+    @XmlTransient
     public List<Sedmovexp> getSedmovexpListNroFuncionario() {
         return sedmovexpListNroFuncionario;
     }
@@ -385,29 +398,29 @@ public class Sempersona implements Serializable {
         this.sedmovexpListNroFuncionario = sedmovexpListNroFuncionario;
     }
 
-    @Override
-    public int hashCode() {
-        int hash = 0;
-        hash += (sempersonaPK != null ? sempersonaPK.hashCode() : 0);
-        return hash;
-    }
-
-    @Override
-    public boolean equals(Object object) {
-        // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Sempersona)) {
-            return false;
-        }
-        Sempersona other = (Sempersona) object;
-        if ((this.sempersonaPK == null && other.sempersonaPK != null) || (this.sempersonaPK != null && !this.sempersonaPK.equals(other.sempersonaPK))) {
-            return false;
-        }
-        return true;
-    }
+//    @Override
+//    public int hashCode() {
+//        int hash = 0;
+//        hash += (nroPersona != null ? nroPersona.hashCode() : 0);
+//        return hash;
+//    }
+//
+//    @Override
+//    public boolean equals(Object object) {
+//        // TODO: Warning - this method won't work in the case the id fields are not set
+//        if (!(object instanceof Sempersona)) {
+//            return false;
+//        }
+//        Sempersona other = (Sempersona) object;
+//        if ((this.nroPersona == null && other.nroPersona != null) || (this.nroPersona != null && !this.nroPersona.equals(other.nroPersona))) {
+//            return false;
+//        }
+//        return true;
+//    } 
 
     @Override
     public String toString() {
-        return "py.gog.mca.sisexpedientes.entidades.Sempersona[ sempersonaPK=" + sempersonaPK + " ]";
+        return "py.gog.mca.sisexpedientes.entidades.Sempersona[ nroPersona=" + nroPersona + " ]";
     }
 
 }

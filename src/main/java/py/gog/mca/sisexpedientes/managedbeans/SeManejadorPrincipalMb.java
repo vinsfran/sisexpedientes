@@ -80,7 +80,7 @@ public class SeManejadorPrincipalMb implements Serializable {
         mostrarBtnVolverListaExpedientes = false;
         listaExpedientes = semexpedienteCrud.listarPorNroExpedienteIndEjefisexp(Integer.parseInt(nroExpeFormExpediente), Integer.parseInt(anioFormExpediente));
         semexpediente = listaExpedientes.get(0);
-        sempersona = semexpediente.getNroTitularJava();
+        sempersona = semexpediente.getNroTitular();
         //listaMovExpedientes = sedmovexpCrud.listarPorNroCarpetaEjerFiscal(Integer.parseInt(nroExpeFormExpediente), Integer.parseInt(anioFormExpediente));
         listaMovExpedientes = listaExpedientes.get(0).getSedmovexpList();
         return "movimientos_expe";

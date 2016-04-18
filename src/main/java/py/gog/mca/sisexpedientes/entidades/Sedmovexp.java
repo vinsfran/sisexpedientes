@@ -22,6 +22,8 @@ import javax.persistence.TemporalType;
 import javax.persistence.Transient;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlRootElement;
 
 /**
@@ -31,6 +33,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 @Entity
 @Table(name = "sedmovexp")
 @XmlRootElement
+@XmlAccessorType(XmlAccessType.PUBLIC_MEMBER)
 @NamedQueries({
     @NamedQuery(name = "Sedmovexp.findAll", query = "SELECT s FROM Sedmovexp s"),
     @NamedQuery(name = "Sedmovexp.findByFecAlta", query = "SELECT s FROM Sedmovexp s WHERE s.fecAlta = :fecAlta"),
@@ -99,15 +102,9 @@ public class Sedmovexp implements Serializable {
     @ManyToOne(optional = false)
     private Semdepen codDepen;
 
-    @Basic(optional = false)
-    @NotNull
-    @Column(name = "nro_funcionario")
-    private int nroFuncionario;
-
-    //@JoinColumn(name = "nro_funcionario", referencedColumnName = "nro_persona")
-    //@ManyToOne(optional = false)
-    @Transient
-    private Sempersona nroFuncionarioJava;
+    @JoinColumn(name = "nro_funcionario", referencedColumnName = "nro_persona")
+    @ManyToOne(optional = false)
+    private Sempersona nroFuncionario;
 
     @Basic(optional = false)
     @NotNull
@@ -137,23 +134,7 @@ public class Sedmovexp implements Serializable {
         this.nroSecuencia = nroSecuencia;
     }
 
-    /*public Sedmovexp(Integer nroSecuencia, Date fecAlta, int nroFuncionario, Sebtipmov nroTipmov, int nroCarpeta, Semdepen codDepen, int indEjefisexp, int nroMesent, String usuAlta, int nroTarea, int nroExpediente, Date fecMovexp, Sebestexp nroEstexp, int indEjefiscar) {
-     this.nroSecuencia = nroSecuencia;
-     this.fecAlta = fecAlta;
-     this.nroFuncionario = nroFuncionario;
-     this.nroTipmov = nroTipmov;
-     this.nroCarpeta = nroCarpeta;
-     this.codDepen = codDepen;
-     this.indEjefisexp = indEjefisexp;
-     this.nroExpediente = nroExpediente;
-     this.nroMesent = nroMesent;
-     this.usuAlta = usuAlta;
-     this.nroTarea = nroTarea;        
-     this.fecMovexp = fecMovexp;
-     this.nroEstexp = nroEstexp;
-     this.indEjefiscar = indEjefiscar;
-     }*/
-    public Sedmovexp(Integer nroSecuencia, Date fecAlta, int nroFuncionario, Sebtipmov nroTipmov, int nroCarpeta, Semdepen codDepen, int nroMesent, String usuAlta, int nroTarea, Semexpediente nroExpediente, Date fecMovexp, Sebestexp nroEstexp, int indEjefiscar) {
+    public Sedmovexp(Integer nroSecuencia, Date fecAlta, Sempersona nroFuncionario, Sebtipmov nroTipmov, int nroCarpeta, Semdepen codDepen, int nroMesent, String usuAlta, int nroTarea, Semexpediente nroExpediente, Date fecMovexp, Sebestexp nroEstexp, int indEjefiscar) {
         this.nroSecuencia = nroSecuencia;
         this.fecAlta = fecAlta;
         this.nroFuncionario = nroFuncionario;
@@ -177,20 +158,12 @@ public class Sedmovexp implements Serializable {
         this.fecAlta = fecAlta;
     }
 
-    public int getNroFuncionario() {
+    public Sempersona getNroFuncionario() {
         return nroFuncionario;
     }
 
-    public void setNroFuncionario(int nroFuncionario) {
+    public void setNroFuncionario(Sempersona nroFuncionario) {
         this.nroFuncionario = nroFuncionario;
-    }
-
-    public Sempersona getNroFuncionarioJava() {
-        return nroFuncionarioJava;
-    }
-
-    public void setNroFuncionarioJava(Sempersona nroFuncionarioJava) {
-        this.nroFuncionarioJava = nroFuncionarioJava;
     }
 
     public Sebtipmov getNroTipmov() {
@@ -225,21 +198,6 @@ public class Sedmovexp implements Serializable {
         this.codDepen = codDepen;
     }
 
-    /*public int getNroExpediente() {
-     return nroExpediente;
-     }
-
-     public void setNroExpediente(int nroExpediente) {
-     this.nroExpediente = nroExpediente;
-     }
-
-     public int getIndEjefisexp() {
-     return indEjefisexp;
-     }
-
-     public void setIndEjefisexp(int indEjefisexp) {
-     this.indEjefisexp = indEjefisexp;
-     }*/
     public Semexpediente getNroExpediente() {
         return nroExpediente;
     }

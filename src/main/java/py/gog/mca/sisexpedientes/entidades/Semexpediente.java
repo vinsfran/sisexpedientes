@@ -9,6 +9,7 @@ import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 import javax.persistence.Basic;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
@@ -16,12 +17,15 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.persistence.Transient;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 
@@ -32,6 +36,7 @@ import javax.xml.bind.annotation.XmlTransient;
 @Entity
 @Table(name = "semexpediente")
 @XmlRootElement
+@XmlAccessorType(XmlAccessType.PUBLIC_MEMBER)
 @NamedQueries({
     @NamedQuery(name = "Semexpediente.findAll", query = "SELECT s FROM Semexpediente s"),
     @NamedQuery(name = "Semexpediente.findByFecUltmod", query = "SELECT s FROM Semexpediente s WHERE s.fecUltmod = :fecUltmod"),
@@ -70,38 +75,17 @@ public class Semexpediente implements Serializable {
     @ManyToOne(optional = false)
     private Semdepen codDepen;
 
-    @Basic(optional = false)
-    @NotNull
-    @Column(name = "nro_titular")
-    private int nroTitular;
+    @JoinColumn(name = "nro_titular", referencedColumnName = "nro_persona", nullable = false, insertable = false, updatable = false)
+    @ManyToOne
+    private Sempersona nroTitular;
 
-    //@JoinColumns(
-    //        { @JoinColumn(name = "nro_titular", referencedColumnName = "nro_persona", nullable = false) }
-    //)
-    //@JoinColumn(name = "nro_titular", referencedColumnName = "nro_persona")
-    //@ManyToOne
-    @Transient
-    private Sempersona nroTitularJava;
+    @JoinColumn(name = "nro_representante", referencedColumnName = "nro_persona", nullable = false, insertable = false, updatable = false)
+    @ManyToOne
+    private Sempersona nroRepresentante;
 
-    @Basic(optional = false)
-    @NotNull
-    @Column(name = "nro_representante")
-    private int nroRepresentante;
-
-    //@JoinColumn(name = "nro_representante", referencedColumnName = "nro_persona")
-    //@ManyToOne
-    @Transient
-    private Sempersona nroRepresentanteJava;
-
-    @Basic(optional = false)
-    @NotNull
-    @Column(name = "nro_funcionario")
-    private int nroFuncionario;
-
-    //@JoinColumn(name = "nro_funcionario", referencedColumnName = "nro_persona")
-    //@ManyToOne
-    @Transient
-    private Sempersona nroFuncionarioJava;
+    @JoinColumn(name = "nro_funcionario", referencedColumnName = "nro_persona", nullable = false, insertable = false, updatable = false)
+    @ManyToOne
+    private Sempersona nroFuncionario;
 
     @Basic(optional = false)
     @NotNull
@@ -180,8 +164,7 @@ public class Semexpediente implements Serializable {
     @Column(name = "nro_mesent")
     private int nroMesent;
 
-    //@OneToMany(mappedBy = "semexpediente")
-    @Transient
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "nroExpediente")
     private List<Sedmovexp> sedmovexpList;
 
     public Semexpediente() {
@@ -191,55 +174,7 @@ public class Semexpediente implements Serializable {
         this.semexpedientePK = semexpedientePK;
     }
 
-    // INICIO ESTADO ANTERIOR
-    /*public Semexpediente(SemexpedientePK semexpedientePK, Date fecUltmod, String usuUltmod, Sebestexp nroEstexp, Date fecIniexp, int nroTitular, int indEjefiscar, int nroFuncionario, Date fecAlta, String usuAlta, int nroCarpeta, String indPrioridad, int nroRepresentante, int nroTarea, Date fecUltmov, int nroTipexp, Semdepen codDepen, String desExpediente, int nroMesent) {
-     this.semexpedientePK = semexpedientePK;
-     this.fecUltmod = fecUltmod;
-     this.usuUltmod = usuUltmod;
-     this.nroEstexp = nroEstexp;
-     this.fecIniexp = fecIniexp;
-     this.nroTitular = nroTitular;
-     this.indEjefiscar = indEjefiscar;
-     this.nroFuncionario = nroFuncionario;
-     this.fecAlta = fecAlta;
-     this.usuAlta = usuAlta;
-     this.nroCarpeta = nroCarpeta;
-     this.indPrioridad = indPrioridad;
-     this.nroRepresentante = nroRepresentante;
-     this.nroTarea = nroTarea;
-     this.fecUltmov = fecUltmov;
-     this.nroTipexp = nroTipexp;
-     this.codDepen = codDepen;
-     this.desExpediente = desExpediente;
-     this.nroMesent = nroMesent;
-     }
-    
-     public int getNroTitular() {
-     return nroTitular;
-     }
-
-     public void setNroTitular(int nroTitular) {
-     this.nroTitular = nroTitular;
-     }
-    
-     public int getNroRepresentante() {
-     return nroRepresentante;
-     }
-
-     public void setNroRepresentante(int nroRepresentante) {
-     this.nroRepresentante = nroRepresentante;
-     }
-    
-     public int getNroFuncionario() {
-     return nroFuncionario;
-     }
-
-     public void setNroFuncionario(int nroFuncionario) {
-     this.nroFuncionario = nroFuncionario;
-     }*/
-    // FIN ESTADO ANTERIOR
-    // INICIO ESTADO ACTUAL
-    public Semexpediente(SemexpedientePK semexpedientePK, int nroTitular, int nroRepresentante, int nroFuncionario, Date fecUltmod, String usuUltmod, Sebestexp nroEstexp, Date fecIniexp, int indEjefiscar, Date fecAlta, String usuAlta, int nroCarpeta, String indPrioridad, int nroTarea, Date fecUltmov, int nroTipexp, Semdepen codDepen, String desExpediente, int nroMesent) {
+    public Semexpediente(SemexpedientePK semexpedientePK, Sempersona nroTitular, Sempersona nroRepresentante, Sempersona nroFuncionario, Date fecUltmod, String usuUltmod, Sebestexp nroEstexp, Date fecIniexp, int indEjefiscar, Date fecAlta, String usuAlta, int nroCarpeta, String indPrioridad, int nroTarea, Date fecUltmov, int nroTipexp, Semdepen codDepen, String desExpediente, int nroMesent) {
         this.semexpedientePK = semexpedientePK;
         this.nroTitular = nroTitular;
         this.nroRepresentante = nroRepresentante;
@@ -261,57 +196,29 @@ public class Semexpediente implements Serializable {
         this.nroMesent = nroMesent;
     }
 
-    public int getNroTitular() {
+    public Sempersona getNroTitular() {
         return nroTitular;
     }
 
-    public void setNroTitular(int nroTitular) {
+    public void setNroTitular(Sempersona nroTitular) {
         this.nroTitular = nroTitular;
     }
 
-    //@XmlTransient
-    public Sempersona getNroTitularJava() {
-        return nroTitularJava;
-    }
-
-    public void setNroTitularJava(Sempersona nroTitularJava) {
-        this.nroTitularJava = nroTitularJava;
-    }
-
-    public int getNroRepresentante() {
+    public Sempersona getNroRepresentante() {
         return nroRepresentante;
     }
 
-    public void setNroRepresentante(int nroRepresentante) {
+    public void setNroRepresentante(Sempersona nroRepresentante) {
         this.nroRepresentante = nroRepresentante;
     }
 
-    //@XmlTransient
-    public Sempersona getNroRepresentanteJava() {
-        return nroRepresentanteJava;
-    }
-
-    public void setNroRepresentanteJava(Sempersona nroRepresentanteJava) {
-        this.nroRepresentanteJava = nroRepresentanteJava;
-    }
-
-    public int getNroFuncionario() {
+    public Sempersona getNroFuncionario() {
         return nroFuncionario;
     }
 
-    public void setNroFuncionario(int nroFuncionario) {
+    public void setNroFuncionario(Sempersona nroFuncionario) {
         this.nroFuncionario = nroFuncionario;
     }
-
-    //@XmlTransient
-    public Sempersona getNroFuncionarioJava() {
-        return nroFuncionarioJava;
-    }
-
-    public void setNroFuncionarioJava(Sempersona nroFuncionarioJava) {
-        this.nroFuncionarioJava = nroFuncionarioJava;
-    }
-    //FIN ESTADO ACTUAL
 
     public Semexpediente(int nroExpediente, int indEjefisexp) {
         this.semexpedientePK = new SemexpedientePK(nroExpediente, indEjefisexp);
@@ -453,7 +360,7 @@ public class Semexpediente implements Serializable {
         this.nroMesent = nroMesent;
     }
 
-    //@XmlTransient
+    @XmlTransient
     public List<Sedmovexp> getSedmovexpList() {
         return sedmovexpList;
     }

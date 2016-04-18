@@ -9,6 +9,7 @@ import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 import javax.persistence.Basic;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -20,6 +21,8 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 
@@ -30,6 +33,7 @@ import javax.xml.bind.annotation.XmlTransient;
 @Entity
 @Table(name = "semdepen")
 @XmlRootElement
+@XmlAccessorType(XmlAccessType.PUBLIC_MEMBER)
 @NamedQueries({
     @NamedQuery(name = "Semdepen.findAll", query = "SELECT s FROM Semdepen s"),
     @NamedQuery(name = "Semdepen.findByFecUltmod", query = "SELECT s FROM Semdepen s WHERE s.fecUltmod = :fecUltmod"),
@@ -85,10 +89,10 @@ public class Semdepen implements Serializable {
     @Temporal(TemporalType.TIMESTAMP)
     private Date fecUltmod;
 
-    @OneToMany(mappedBy = "codDepen")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "codDepen")
     private List<Semexpediente> semexpedienteList;
 
-    @OneToMany(mappedBy = "codDepen")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "codDepen")
     private List<Sedmovexp> sedmovexpList;
 
     public Semdepen() {
@@ -164,7 +168,7 @@ public class Semdepen implements Serializable {
         this.fecAlta = fecAlta;
     }
 
-    // @XmlTransient
+    @XmlTransient
     public List<Semexpediente> getSemexpedienteList() {
         return semexpedienteList;
     }
@@ -173,7 +177,7 @@ public class Semdepen implements Serializable {
         this.semexpedienteList = semexpedienteList;
     }
 
-    // @XmlTransient
+    @XmlTransient
     public List<Sedmovexp> getSedmovexpList() {
         return sedmovexpList;
     }

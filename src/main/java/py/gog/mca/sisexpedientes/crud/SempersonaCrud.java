@@ -36,8 +36,8 @@ public class SempersonaCrud {
         StringBuilder jpql = new StringBuilder();
         jpql.append("SELECT e ");
         jpql.append("FROM Sempersona e ");
-        jpql.append("WHERE e.sempersonaPK.nroDocide = :paramNroDocide ");
-        jpql.append("AND e.sempersonaPK.indTipdocide = :paramIndTipdocide ");
+        jpql.append("WHERE e.nroDocide = :paramNroDocide ");
+        jpql.append("AND e.indTipdocide = :paramIndTipdocide ");
         Query q = em.createQuery(jpql.toString());
         q.setParameter("paramNroDocide", nroDocide);
         q.setParameter("paramIndTipdocide", indTipdocide);
@@ -60,7 +60,7 @@ public class SempersonaCrud {
         StringBuilder jpql = new StringBuilder();
         jpql.append("SELECT e ");
         jpql.append("FROM Sempersona e ");
-        jpql.append("WHERE e.sempersonaPK.nroDocide = :paramNroDocide ");
+        jpql.append("WHERE e.nroDocide = :paramNroDocide ");
         //jpql.append("WHERE e.persona.nombre LIKE '%:paramNombre%'");
         Query q = em.createQuery(jpql.toString());
         q.setParameter("paramNroDocide", nroDocide);
@@ -84,7 +84,7 @@ public class SempersonaCrud {
         StringBuilder jpql = new StringBuilder();
         jpql.append("SELECT e ");
         jpql.append("FROM Semexpediente e ");
-        jpql.append("WHERE e.nroTitular = :paramNroTitular ");
+        jpql.append("WHERE e.nroTitular.nroPersona = :paramNroTitular ");
         //jpql.append("WHERE e.persona.nombre LIKE '%:paramNombre%'");
         Query q = em.createQuery(jpql.toString());
         q.setParameter("paramNroTitular", nroTitular);

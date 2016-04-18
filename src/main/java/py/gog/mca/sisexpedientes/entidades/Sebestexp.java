@@ -18,6 +18,8 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 
@@ -28,6 +30,7 @@ import javax.xml.bind.annotation.XmlTransient;
 @Entity
 @Table(name = "sebestexp")
 @XmlRootElement
+@XmlAccessorType(XmlAccessType.PUBLIC_MEMBER)
 @NamedQueries({
     @NamedQuery(name = "Sebestexp.findAll", query = "SELECT s FROM Sebestexp s"),
     @NamedQuery(name = "Sebestexp.findByDesEstexp", query = "SELECT s FROM Sebestexp s WHERE s.desEstexp = :desEstexp"),
@@ -48,10 +51,10 @@ public class Sebestexp implements Serializable {
     @Column(name = "des_estexp")
     private String desEstexp;
 
-    @OneToMany(mappedBy = "nroEstexp")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "nroEstexp")
     private List<Semexpediente> semexpedienteList;
 
-    @OneToMany(mappedBy = "nroEstexp")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "nroEstexp")
     private List<Sedmovexp> sedmovexpList;
 
     public Sebestexp() {
@@ -82,6 +85,7 @@ public class Sebestexp implements Serializable {
         this.nroEstexp = nroEstexp;
     }
 
+    @XmlTransient
     public List<Semexpediente> getSemexpedienteList() {
         return semexpedienteList;
     }
@@ -90,6 +94,7 @@ public class Sebestexp implements Serializable {
         this.semexpedienteList = semexpedienteList;
     }
 
+    @XmlTransient
     public List<Sedmovexp> getSedmovexpList() {
         return sedmovexpList;
     }
