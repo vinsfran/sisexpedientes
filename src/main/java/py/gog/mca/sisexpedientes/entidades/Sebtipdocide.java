@@ -6,6 +6,7 @@
 package py.gog.mca.sisexpedientes.entidades;
 
 import java.io.Serializable;
+import java.util.List;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -13,9 +14,11 @@ import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
@@ -31,17 +34,24 @@ import javax.xml.bind.annotation.XmlRootElement;
 public class Sebtipdocide implements Serializable {
 
     private static final long serialVersionUID = 1L;
-    @Basic(optional = false)
-    @NotNull
-    @Size(min = 1, max = 60)
-    @Column(name = "des_tipdocide")
-    private String desTipdocide;
+
     @Id
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 10)
     @Column(name = "ind_tipdocide")
     private String indTipdocide;
+
+    @Basic(optional = false)
+    @NotNull
+    @Size(min = 1, max = 60)
+    @Column(name = "des_tipdocide")
+    private String desTipdocide;
+    
+    
+   // @OneToMany(cascade = CascadeType.ALL, mappedBy = "indTipdocide")
+    @Transient
+    private List<Sempersona> sempersonaList;
 
     public Sebtipdocide() {
     }
@@ -71,6 +81,15 @@ public class Sebtipdocide implements Serializable {
         this.indTipdocide = indTipdocide;
     }
 
+    //@XmlTransient
+    public List<Sempersona> getSempersonaList() {
+        return sempersonaList;
+    }
+
+    public void setSempersonaList(List<Sempersona> sempersonaList) {
+        this.sempersonaList = sempersonaList;
+    }
+    
     @Override
     public int hashCode() {
         int hash = 0;
@@ -95,5 +114,5 @@ public class Sebtipdocide implements Serializable {
     public String toString() {
         return "py.gog.mca.sisexpedientes.entidades.Sebtipdocide[ indTipdocide=" + indTipdocide + " ]";
     }
-    
+
 }

@@ -28,23 +28,27 @@ import javax.xml.bind.annotation.XmlTransient;
 @Table(name = "semdepen")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "Semdepen.findAll", query = "SELECT s FROM Semdepen s"),
-    @NamedQuery(name = "Semdepen.findByCodDepen", query = "SELECT s FROM Semdepen s WHERE s.codDepen = :codDepen"),
-    @NamedQuery(name = "Semdepen.findByDesDepen", query = "SELECT s FROM Semdepen s WHERE s.desDepen = :desDepen")})
+    @NamedQuery(name = "Semdepen2.findAll", query = "SELECT s FROM Semdepen2 s"),
+    @NamedQuery(name = "Semdepen2.findByCodDepen", query = "SELECT s FROM Semdepen2 s WHERE s.codDepen = :codDepen"),
+    @NamedQuery(name = "Semdepen2.findByDesDepen", query = "SELECT s FROM Semdepen2 s WHERE s.desDepen = :desDepen")})
 public class Semdepen2 implements Serializable {
 
     private static final long serialVersionUID = 1L;
+    
     @Id
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 2147483647)
     @Column(name = "cod_depen")
     private String codDepen;
+    
     @Size(max = 2147483647)
     @Column(name = "des_depen")
     private String desDepen;
+    
     @OneToMany(mappedBy = "codDepen")
     private List<Semexpediente2> semexpedienteList;
+    
     @OneToMany(mappedBy = "codDepen")
     private List<Sedmovexp2> sedmovexpList;
 

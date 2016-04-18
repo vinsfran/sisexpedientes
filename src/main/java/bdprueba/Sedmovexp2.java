@@ -31,57 +31,70 @@ import javax.xml.bind.annotation.XmlRootElement;
 @Table(name = "sedmovexp")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "Sedmovexp.findAll", query = "SELECT s FROM Sedmovexp s"),
-    @NamedQuery(name = "Sedmovexp.findByNroSecuencia", query = "SELECT s FROM Sedmovexp s WHERE s.nroSecuencia = :nroSecuencia"),
-    @NamedQuery(name = "Sedmovexp.findByNroCarpeta", query = "SELECT s FROM Sedmovexp s WHERE s.nroCarpeta = :nroCarpeta"),
-    @NamedQuery(name = "Sedmovexp.findByIndEjefiscar", query = "SELECT s FROM Sedmovexp s WHERE s.indEjefiscar = :indEjefiscar"),
-    @NamedQuery(name = "Sedmovexp.findByFecMovexp", query = "SELECT s FROM Sedmovexp s WHERE s.fecMovexp = :fecMovexp"),
-    @NamedQuery(name = "Sedmovexp.findByNroMesent", query = "SELECT s FROM Sedmovexp s WHERE s.nroMesent = :nroMesent"),
-    @NamedQuery(name = "Sedmovexp.findByNroTarea", query = "SELECT s FROM Sedmovexp s WHERE s.nroTarea = :nroTarea"),
-    @NamedQuery(name = "Sedmovexp.findByUsuAlta", query = "SELECT s FROM Sedmovexp s WHERE s.usuAlta = :usuAlta"),
-    @NamedQuery(name = "Sedmovexp.findByFecAlta", query = "SELECT s FROM Sedmovexp s WHERE s.fecAlta = :fecAlta")})
+    @NamedQuery(name = "Sedmovexp2.findAll", query = "SELECT s FROM Sedmovexp s"),
+    @NamedQuery(name = "Sedmovexp2.findByNroSecuencia", query = "SELECT s FROM Sedmovexp2 s WHERE s.nroSecuencia = :nroSecuencia"),
+    @NamedQuery(name = "Sedmovexp2.findByNroCarpeta", query = "SELECT s FROM Sedmovexp2 s WHERE s.nroCarpeta = :nroCarpeta"),
+    @NamedQuery(name = "Sedmovexp2.findByIndEjefiscar", query = "SELECT s FROM Sedmovexp2 s WHERE s.indEjefiscar = :indEjefiscar"),
+    @NamedQuery(name = "Sedmovexp2.findByFecMovexp", query = "SELECT s FROM Sedmovexp2 s WHERE s.fecMovexp = :fecMovexp"),
+    @NamedQuery(name = "Sedmovexp2.findByNroMesent", query = "SELECT s FROM Sedmovexp2 s WHERE s.nroMesent = :nroMesent"),
+    @NamedQuery(name = "Sedmovexp2.findByNroTarea", query = "SELECT s FROM Sedmovexp2 s WHERE s.nroTarea = :nroTarea"),
+    @NamedQuery(name = "Sedmovexp2.findByUsuAlta", query = "SELECT s FROM Sedmovexp2 s WHERE s.usuAlta = :usuAlta"),
+    @NamedQuery(name = "Sedmovexp2.findByFecAlta", query = "SELECT s FROM Sedmovexp2 s WHERE s.fecAlta = :fecAlta")})
 public class Sedmovexp2 implements Serializable {
 
     private static final long serialVersionUID = 1L;
+
     @Id
     @Basic(optional = false)
     @NotNull
     @Column(name = "nro_secuencia")
     private Integer nroSecuencia;
-    @Column(name = "nro_carpeta")
-    private Integer nroCarpeta;
-    @Column(name = "ind_ejefiscar")
-    private Integer indEjefiscar;
-    @Column(name = "fec_movexp")
-    @Temporal(TemporalType.DATE)
-    private Date fecMovexp;
-    @Column(name = "nro_mesent")
-    private Integer nroMesent;
-    @Column(name = "nro_tarea")
-    private Integer nroTarea;
-    @Size(max = 2147483647)
-    @Column(name = "usu_alta")
-    private String usuAlta;
-    @Column(name = "fec_alta")
-    @Temporal(TemporalType.DATE)
-    private Date fecAlta;
-    @JoinColumn(name = "nro_estexp", referencedColumnName = "nro_estexp")
-    @ManyToOne
-    private Sebestexp2 nroEstexp;
-    @JoinColumn(name = "nro_tipmov", referencedColumnName = "nro_tipmov")
-    @ManyToOne
-    private Sebtipmov2 nroTipmov;
-    @JoinColumn(name = "cod_depen", referencedColumnName = "cod_depen")
-    @ManyToOne
-    private Semdepen2 codDepen;
+
     @JoinColumns({
         @JoinColumn(name = "nro_expediente", referencedColumnName = "nro_expediente"),
         @JoinColumn(name = "ind_ejefisexp", referencedColumnName = "ind_ejefisexp")})
     @ManyToOne
     private Semexpediente2 semexpediente;
+
+    @Column(name = "nro_carpeta")
+    private Integer nroCarpeta;
+
+    @Column(name = "ind_ejefiscar")
+    private Integer indEjefiscar;
+
+    @Column(name = "fec_movexp")
+    @Temporal(TemporalType.DATE)
+    private Date fecMovexp;
+
+    @JoinColumn(name = "nro_tipmov", referencedColumnName = "nro_tipmov")
+    @ManyToOne
+    private Sebtipmov2 nroTipmov;
+
+    @Column(name = "nro_mesent")
+    private Integer nroMesent;
+
+    @JoinColumn(name = "cod_depen", referencedColumnName = "cod_depen")
+    @ManyToOne
+    private Semdepen2 codDepen;
+
     @JoinColumn(name = "nro_funcionario", referencedColumnName = "nro_persona")
     @ManyToOne
     private Sempersona2 nroFuncionario;
+
+    @Column(name = "nro_tarea")
+    private Integer nroTarea;
+
+    @JoinColumn(name = "nro_estexp", referencedColumnName = "nro_estexp")
+    @ManyToOne
+    private Sebestexp2 nroEstexp;
+
+    @Size(max = 2147483647)
+    @Column(name = "usu_alta")
+    private String usuAlta;
+
+    @Column(name = "fec_alta")
+    @Temporal(TemporalType.DATE)
+    private Date fecAlta;
 
     public Sedmovexp2() {
     }
@@ -218,5 +231,5 @@ public class Sedmovexp2 implements Serializable {
     public String toString() {
         return "py.gog.mca.mavenproject2.Sedmovexp[ nroSecuencia=" + nroSecuencia + " ]";
     }
-    
+
 }

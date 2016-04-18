@@ -9,7 +9,6 @@ import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 import javax.persistence.Basic;
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -43,42 +42,54 @@ import javax.xml.bind.annotation.XmlTransient;
 public class Semdepen implements Serializable {
 
     private static final long serialVersionUID = 1L;
-    @Basic(optional = false)
-    @NotNull
-    @Column(name = "fec_ultmod")
-    @Temporal(TemporalType.TIMESTAMP)
-    private Date fecUltmod;
-    @Basic(optional = false)
-    @NotNull
-    @Size(min = 1, max = 20)
-    @Column(name = "usu_alta")
-    private String usuAlta;
+
     @Id
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 14)
     @Column(name = "cod_depen")
     private String codDepen;
-    @Basic(optional = false)
-    @NotNull
-    @Column(name = "nro_mesent")
-    private int nroMesent;
-    @Basic(optional = false)
-    @NotNull
-    @Size(min = 1, max = 20)
-    @Column(name = "usu_ultmod")
-    private String usuUltmod;
+
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 60)
     @Column(name = "des_depen")
     private String desDepen;
+
+    @Basic(optional = false)
+    @NotNull
+    @Column(name = "nro_mesent")
+    private int nroMesent;
+
+    @Basic(optional = false)
+    @NotNull
+    @Size(min = 1, max = 20)
+    @Column(name = "usu_alta")
+    private String usuAlta;
+
     @Basic(optional = false)
     @NotNull
     @Column(name = "fec_alta")
     @Temporal(TemporalType.TIMESTAMP)
     private Date fecAlta;
 
+    @Basic(optional = false)
+    @NotNull
+    @Size(min = 1, max = 20)
+    @Column(name = "usu_ultmod")
+    private String usuUltmod;
+
+    @Basic(optional = false)
+    @NotNull
+    @Column(name = "fec_ultmod")
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date fecUltmod;
+
+    @OneToMany(mappedBy = "codDepen")
+    private List<Semexpediente> semexpedienteList;
+
+    @OneToMany(mappedBy = "codDepen")
+    private List<Sedmovexp> sedmovexpList;
 
     public Semdepen() {
     }
@@ -153,6 +164,23 @@ public class Semdepen implements Serializable {
         this.fecAlta = fecAlta;
     }
 
+    // @XmlTransient
+    public List<Semexpediente> getSemexpedienteList() {
+        return semexpedienteList;
+    }
+
+    public void setSemexpedienteList(List<Semexpediente> semexpedienteList) {
+        this.semexpedienteList = semexpedienteList;
+    }
+
+    // @XmlTransient
+    public List<Sedmovexp> getSedmovexpList() {
+        return sedmovexpList;
+    }
+
+    public void setSedmovexpList(List<Sedmovexp> sedmovexpList) {
+        this.sedmovexpList = sedmovexpList;
+    }
 
     @Override
     public int hashCode() {

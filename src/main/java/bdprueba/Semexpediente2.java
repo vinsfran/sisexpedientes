@@ -26,29 +26,36 @@ import javax.xml.bind.annotation.XmlTransient;
 @Table(name = "semexpediente")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "Semexpediente.findAll", query = "SELECT s FROM Semexpediente s"),
-    @NamedQuery(name = "Semexpediente.findByNroExpediente", query = "SELECT s FROM Semexpediente s WHERE s.semexpedientePK.nroExpediente = :nroExpediente"),
-    @NamedQuery(name = "Semexpediente.findByIndEjefisexp", query = "SELECT s FROM Semexpediente s WHERE s.semexpedientePK.indEjefisexp = :indEjefisexp")})
+    @NamedQuery(name = "Semexpediente2.findAll", query = "SELECT s FROM Semexpediente2 s"),
+    @NamedQuery(name = "Semexpediente2.findByNroExpediente", query = "SELECT s FROM Semexpediente2 s WHERE s.semexpedientePK.nroExpediente = :nroExpediente"),
+    @NamedQuery(name = "Semexpediente2.findByIndEjefisexp", query = "SELECT s FROM Semexpediente2 s WHERE s.semexpedientePK.indEjefisexp = :indEjefisexp")})
 public class Semexpediente2 implements Serializable {
 
     private static final long serialVersionUID = 1L;
+    
     @EmbeddedId
     protected SemexpedientePK2 semexpedientePK;
+    
     @JoinColumn(name = "nro_estexp", referencedColumnName = "nro_estexp")
     @ManyToOne
     private Sebestexp2 nroEstexp;
+    
     @JoinColumn(name = "cod_depen", referencedColumnName = "cod_depen")
     @ManyToOne
     private Semdepen2 codDepen;
+    
     @JoinColumn(name = "nro_titular", referencedColumnName = "nro_persona")
     @ManyToOne
     private Sempersona2 nroTitular;
+    
     @JoinColumn(name = "nro_representante", referencedColumnName = "nro_persona")
     @ManyToOne
     private Sempersona2 nroRepresentante;
+    
     @JoinColumn(name = "nro_funcionario", referencedColumnName = "nro_persona")
     @ManyToOne
     private Sempersona2 nroFuncionario;
+    
     @OneToMany(mappedBy = "semexpediente")
     private List<Sedmovexp2> sedmovexpList;
 

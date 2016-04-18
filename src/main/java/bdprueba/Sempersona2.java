@@ -30,26 +30,34 @@ import javax.xml.bind.annotation.XmlTransient;
 @Table(name = "sempersona")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "Sempersona.findAll", query = "SELECT s FROM Sempersona s"),
-    @NamedQuery(name = "Sempersona.findByNroDocide", query = "SELECT s FROM Sempersona s WHERE s.nroDocide = :nroDocide"),
-    @NamedQuery(name = "Sempersona.findByObsPersona", query = "SELECT s FROM Sempersona s WHERE s.obsPersona = :obsPersona"),
-    @NamedQuery(name = "Sempersona.findByNroPersona", query = "SELECT s FROM Sempersona s WHERE s.nroPersona = :nroPersona")})
+    @NamedQuery(name = "Sempersona2.findAll", query = "SELECT s FROM Sempersona2 s"),
+    @NamedQuery(name = "Sempersona2.findByNroDocide", query = "SELECT s FROM Sempersona2 s WHERE s.nroDocide = :nroDocide"),
+    @NamedQuery(name = "Sempersona2.findByObsPersona", query = "SELECT s FROM Sempersona2 s WHERE s.obsPersona = :obsPersona"),
+    @NamedQuery(name = "Sempersona2.findByNroPersona", query = "SELECT s FROM Sempersona2 s WHERE s.nroPersona = :nroPersona")})
 public class Sempersona2 implements Serializable {
 
     private static final long serialVersionUID = 1L;
-    @Basic(optional = false)
-    @NotNull
-    @Size(min = 1, max = 2147483647)
-    @Column(name = "nro_docide")
-    private String nroDocide;
-    @Size(max = 2147483647)
-    @Column(name = "obs_persona")
-    private String obsPersona;
+
     @Id
     @Basic(optional = false)
     @NotNull
     @Column(name = "nro_persona")
     private Integer nroPersona;
+
+    @Basic(optional = false)
+    @NotNull
+    @Size(min = 1, max = 2147483647)
+    @Column(name = "nro_docide")
+    private String nroDocide;
+
+    @JoinColumn(name = "ind_tipdocide", referencedColumnName = "ind_tipdocide")
+    @ManyToOne(optional = false)
+    private Sebtipdocide2 indTipdocide;
+
+    @Size(max = 2147483647)
+    @Column(name = "obs_persona")
+    private String obsPersona;
+
     @OneToMany(mappedBy = "nroTitular")
     private List<Semexpediente2> semexpedienteList;
     @OneToMany(mappedBy = "nroRepresentante")
@@ -58,9 +66,6 @@ public class Sempersona2 implements Serializable {
     private List<Semexpediente2> semexpedienteList2;
     @OneToMany(mappedBy = "nroFuncionario")
     private List<Sedmovexp2> sedmovexpList;
-    @JoinColumn(name = "ind_tipdocide", referencedColumnName = "ind_tipdocide")
-    @ManyToOne(optional = false)
-    private Sebtipdocide2 indTipdocide;
 
     public Sempersona2() {
     }
@@ -166,5 +171,5 @@ public class Sempersona2 implements Serializable {
     public String toString() {
         return "py.gog.mca.mavenproject2.Sempersona[ nroPersona=" + nroPersona + " ]";
     }
-    
+
 }

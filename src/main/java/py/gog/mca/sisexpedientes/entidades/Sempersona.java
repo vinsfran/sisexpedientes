@@ -7,6 +7,7 @@ package py.gog.mca.sisexpedientes.entidades;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.EmbeddedId;
@@ -18,16 +19,19 @@ import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.persistence.Transient;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
  * @author vinsfran
  */
 @Entity
-@Table(name = "sempersona")
+@Table(name="sempersona")
+
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Sempersona.findAll", query = "SELECT s FROM Sempersona s"),
@@ -53,11 +57,17 @@ import javax.xml.bind.annotation.XmlRootElement;
 public class Sempersona implements Serializable {
 
     private static final long serialVersionUID = 1L;
+    
     @EmbeddedId
     protected SempersonaPK sempersonaPK;
-
-    @JoinColumn(name = "ind_tipdocide", referencedColumnName = "ind_tipdocide", insertable = false, updatable = false)
-    @ManyToOne(optional = false)
+    
+    @Basic(optional = false)
+    @NotNull
+    @Column(name = "nro_persona")
+    private int nroPersona;
+    
+    @JoinColumn(name = "ind_tipdocide", referencedColumnName = "ind_tipdocide", nullable = false, insertable = false, updatable = false)
+    @ManyToOne
     private Sebtipdocide sebtipdocide;
 
     @Size(max = 120)
@@ -128,10 +138,7 @@ public class Sempersona implements Serializable {
     @Column(name = "fec_naccon")
     @Temporal(TemporalType.TIMESTAMP)
     private Date fecNaccon;
-    @Basic(optional = false)
-    @NotNull
-    @Column(name = "nro_persona")
-    private int nroPersona;
+
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 10)
@@ -143,6 +150,22 @@ public class Sempersona implements Serializable {
     @Column(name = "ind_activo")
     private String indActivo;
 
+    //@OneToMany(cascade = CascadeType.ALL, mappedBy = "nroTitular")
+    @Transient
+    private List<Semexpediente> semexpedienteListNroTitular;
+    
+    //@OneToMany(cascade = CascadeType.ALL, mappedBy = "nroRepresentante")
+    @Transient
+    private List<Semexpediente> semexpedienteListNroRepresentante;
+    
+    //@OneToMany(cascade = CascadeType.ALL, mappedBy = "nroFuncionario")
+    @Transient
+    private List<Semexpediente> semexpedienteListNroFuncionario;
+    
+    //@OneToMany(cascade = CascadeType.ALL, mappedBy = "nroFuncionario")
+    @Transient
+    private List<Sedmovexp> sedmovexpListNroFuncionario;
+
     public Sempersona() {
     }
 
@@ -150,8 +173,9 @@ public class Sempersona implements Serializable {
         this.sempersonaPK = sempersonaPK;
     }
 
-    public Sempersona(SempersonaPK sempersonaPK, String indTipper, String emailPrincipal, String indSexo, String usuAlta, String telPrincipal, Date fecUltmod, String nomFantasia, String usuUltmod, String desPersona, String dirPrincipal, String indEstciv, Date fecAlta, Date fecNaccon, int nroPersona, String indTipsoc, String indActivo) {
+    public Sempersona(SempersonaPK sempersonaPK, int nroPersona, String indTipper, String emailPrincipal, String indSexo, String usuAlta, String telPrincipal, Date fecUltmod, String nomFantasia, String usuUltmod, String desPersona, String dirPrincipal, String indEstciv, Date fecAlta, Date fecNaccon, String indTipsoc, String indActivo) {
         this.sempersonaPK = sempersonaPK;
+        this.nroPersona = nroPersona;
         this.indTipper = indTipper;
         this.emailPrincipal = emailPrincipal;
         this.indSexo = indSexo;
@@ -165,7 +189,6 @@ public class Sempersona implements Serializable {
         this.indEstciv = indEstciv;
         this.fecAlta = fecAlta;
         this.fecNaccon = fecNaccon;
-        this.nroPersona = nroPersona;
         this.indTipsoc = indTipsoc;
         this.indActivo = indActivo;
     }
@@ -180,6 +203,14 @@ public class Sempersona implements Serializable {
 
     public void setSempersonaPK(SempersonaPK sempersonaPK) {
         this.sempersonaPK = sempersonaPK;
+    }
+        
+    public int getNroPersona() {
+        return nroPersona;
+    }
+
+    public void setNroPersona(int nroPersona) {
+        this.nroPersona = nroPersona;
     }
 
     public String getObsPersona() {
@@ -294,14 +325,6 @@ public class Sempersona implements Serializable {
         this.fecNaccon = fecNaccon;
     }
 
-    public int getNroPersona() {
-        return nroPersona;
-    }
-
-    public void setNroPersona(int nroPersona) {
-        this.nroPersona = nroPersona;
-    }
-
     public String getIndTipsoc() {
         return indTipsoc;
     }
@@ -324,6 +347,42 @@ public class Sempersona implements Serializable {
 
     public void setSebtipdocide(Sebtipdocide sebtipdocide) {
         this.sebtipdocide = sebtipdocide;
+    }
+
+    //@XmlTransient
+    public List<Semexpediente> getSemexpedienteListNroTitular() {
+        return semexpedienteListNroTitular;
+    }
+
+    public void setSemexpedienteListNroTitular(List<Semexpediente> semexpedienteListNroTitular) {
+        this.semexpedienteListNroTitular = semexpedienteListNroTitular;
+    }
+
+    //@XmlTransient
+    public List<Semexpediente> getSemexpedienteListNroRepresentante() {
+        return semexpedienteListNroRepresentante;
+    }
+
+    public void setSemexpedienteListNroRepresentante(List<Semexpediente> semexpedienteListNroRepresentante) {
+        this.semexpedienteListNroRepresentante = semexpedienteListNroRepresentante;
+    }
+
+    //@XmlTransient
+    public List<Semexpediente> getSemexpedienteListNroFuncionario() {
+        return semexpedienteListNroFuncionario;
+    }
+
+    public void setSemexpedienteListNroFuncionario(List<Semexpediente> semexpedienteListNroFuncionario) {
+        this.semexpedienteListNroFuncionario = semexpedienteListNroFuncionario;
+    }
+
+    //@XmlTransient
+    public List<Sedmovexp> getSedmovexpListNroFuncionario() {
+        return sedmovexpListNroFuncionario;
+    }
+
+    public void setSedmovexpListNroFuncionario(List<Sedmovexp> sedmovexpListNroFuncionario) {
+        this.sedmovexpListNroFuncionario = sedmovexpListNroFuncionario;
     }
 
     @Override

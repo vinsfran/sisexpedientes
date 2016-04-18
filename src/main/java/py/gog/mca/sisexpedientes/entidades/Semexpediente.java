@@ -7,6 +7,7 @@ package py.gog.mca.sisexpedientes.entidades;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.EmbeddedId;
@@ -18,9 +19,11 @@ import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.persistence.Transient;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
@@ -55,6 +58,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 public class Semexpediente implements Serializable {
 
     private static final long serialVersionUID = 1L;
+
     @EmbeddedId
     protected SemexpedientePK semexpedientePK;
 
@@ -65,22 +69,39 @@ public class Semexpediente implements Serializable {
     @JoinColumn(name = "cod_depen", referencedColumnName = "cod_depen")
     @ManyToOne(optional = false)
     private Semdepen codDepen;
-    
+
     @Basic(optional = false)
     @NotNull
     @Column(name = "nro_titular")
     private int nroTitular;
+
+    //@JoinColumns(
+    //        { @JoinColumn(name = "nro_titular", referencedColumnName = "nro_persona", nullable = false) }
+    //)
+    //@JoinColumn(name = "nro_titular", referencedColumnName = "nro_persona")
+    //@ManyToOne
+    @Transient
+    private Sempersona nroTitularJava;
 
     @Basic(optional = false)
     @NotNull
     @Column(name = "nro_representante")
     private int nroRepresentante;
 
+    //@JoinColumn(name = "nro_representante", referencedColumnName = "nro_persona")
+    //@ManyToOne
+    @Transient
+    private Sempersona nroRepresentanteJava;
+
     @Basic(optional = false)
     @NotNull
     @Column(name = "nro_funcionario")
     private int nroFuncionario;
-    
+
+    //@JoinColumn(name = "nro_funcionario", referencedColumnName = "nro_persona")
+    //@ManyToOne
+    @Transient
+    private Sempersona nroFuncionarioJava;
 
     @Basic(optional = false)
     @NotNull
@@ -93,8 +114,6 @@ public class Semexpediente implements Serializable {
     @Size(min = 1, max = 20)
     @Column(name = "usu_ultmod")
     private String usuUltmod;
-
-    
 
     @Basic(optional = false)
     @NotNull
@@ -161,6 +180,10 @@ public class Semexpediente implements Serializable {
     @Column(name = "nro_mesent")
     private int nroMesent;
 
+    //@OneToMany(mappedBy = "semexpediente")
+    @Transient
+    private List<Sedmovexp> sedmovexpList;
+
     public Semexpediente() {
     }
 
@@ -168,20 +191,68 @@ public class Semexpediente implements Serializable {
         this.semexpedientePK = semexpedientePK;
     }
 
-    public Semexpediente(SemexpedientePK semexpedientePK, Date fecUltmod, String usuUltmod, Sebestexp nroEstexp, Date fecIniexp, int nroTitular, int indEjefiscar, int nroFuncionario, Date fecAlta, String usuAlta, int nroCarpeta, String indPrioridad, int nroRepresentante, int nroTarea, Date fecUltmov, int nroTipexp, Semdepen codDepen, String desExpediente, int nroMesent) {
+    // INICIO ESTADO ANTERIOR
+    /*public Semexpediente(SemexpedientePK semexpedientePK, Date fecUltmod, String usuUltmod, Sebestexp nroEstexp, Date fecIniexp, int nroTitular, int indEjefiscar, int nroFuncionario, Date fecAlta, String usuAlta, int nroCarpeta, String indPrioridad, int nroRepresentante, int nroTarea, Date fecUltmov, int nroTipexp, Semdepen codDepen, String desExpediente, int nroMesent) {
+     this.semexpedientePK = semexpedientePK;
+     this.fecUltmod = fecUltmod;
+     this.usuUltmod = usuUltmod;
+     this.nroEstexp = nroEstexp;
+     this.fecIniexp = fecIniexp;
+     this.nroTitular = nroTitular;
+     this.indEjefiscar = indEjefiscar;
+     this.nroFuncionario = nroFuncionario;
+     this.fecAlta = fecAlta;
+     this.usuAlta = usuAlta;
+     this.nroCarpeta = nroCarpeta;
+     this.indPrioridad = indPrioridad;
+     this.nroRepresentante = nroRepresentante;
+     this.nroTarea = nroTarea;
+     this.fecUltmov = fecUltmov;
+     this.nroTipexp = nroTipexp;
+     this.codDepen = codDepen;
+     this.desExpediente = desExpediente;
+     this.nroMesent = nroMesent;
+     }
+    
+     public int getNroTitular() {
+     return nroTitular;
+     }
+
+     public void setNroTitular(int nroTitular) {
+     this.nroTitular = nroTitular;
+     }
+    
+     public int getNroRepresentante() {
+     return nroRepresentante;
+     }
+
+     public void setNroRepresentante(int nroRepresentante) {
+     this.nroRepresentante = nroRepresentante;
+     }
+    
+     public int getNroFuncionario() {
+     return nroFuncionario;
+     }
+
+     public void setNroFuncionario(int nroFuncionario) {
+     this.nroFuncionario = nroFuncionario;
+     }*/
+    // FIN ESTADO ANTERIOR
+    // INICIO ESTADO ACTUAL
+    public Semexpediente(SemexpedientePK semexpedientePK, int nroTitular, int nroRepresentante, int nroFuncionario, Date fecUltmod, String usuUltmod, Sebestexp nroEstexp, Date fecIniexp, int indEjefiscar, Date fecAlta, String usuAlta, int nroCarpeta, String indPrioridad, int nroTarea, Date fecUltmov, int nroTipexp, Semdepen codDepen, String desExpediente, int nroMesent) {
         this.semexpedientePK = semexpedientePK;
+        this.nroTitular = nroTitular;
+        this.nroRepresentante = nroRepresentante;
+        this.nroFuncionario = nroFuncionario;
         this.fecUltmod = fecUltmod;
         this.usuUltmod = usuUltmod;
         this.nroEstexp = nroEstexp;
         this.fecIniexp = fecIniexp;
-        this.nroTitular = nroTitular;
         this.indEjefiscar = indEjefiscar;
-        this.nroFuncionario = nroFuncionario;
         this.fecAlta = fecAlta;
         this.usuAlta = usuAlta;
         this.nroCarpeta = nroCarpeta;
         this.indPrioridad = indPrioridad;
-        this.nroRepresentante = nroRepresentante;
         this.nroTarea = nroTarea;
         this.fecUltmov = fecUltmov;
         this.nroTipexp = nroTipexp;
@@ -189,6 +260,55 @@ public class Semexpediente implements Serializable {
         this.desExpediente = desExpediente;
         this.nroMesent = nroMesent;
     }
+
+    public int getNroTitular() {
+        return nroTitular;
+    }
+
+    public void setNroTitular(int nroTitular) {
+        this.nroTitular = nroTitular;
+    }
+
+    public Sempersona getNroTitularJava() {
+        return nroTitularJava;
+    }
+
+    public void setNroTitularJava(Sempersona nroTitularJava) {
+        this.nroTitularJava = nroTitularJava;
+    }
+
+    public int getNroRepresentante() {
+        return nroRepresentante;
+    }
+
+    public void setNroRepresentante(int nroRepresentante) {
+        this.nroRepresentante = nroRepresentante;
+    }
+
+    public Sempersona getNroRepresentanteJava() {
+        return nroRepresentanteJava;
+    }
+
+    public void setNroRepresentanteJava(Sempersona nroRepresentanteJava) {
+        this.nroRepresentanteJava = nroRepresentanteJava;
+    }
+
+    public int getNroFuncionario() {
+        return nroFuncionario;
+    }
+
+    public void setNroFuncionario(int nroFuncionario) {
+        this.nroFuncionario = nroFuncionario;
+    }
+
+    public Sempersona getNroFuncionarioJava() {
+        return nroFuncionarioJava;
+    }
+
+    public void setNroFuncionarioJava(Sempersona nroFuncionarioJava) {
+        this.nroFuncionarioJava = nroFuncionarioJava;
+    }
+    //FIN ESTADO ACTUAL
 
     public Semexpediente(int nroExpediente, int indEjefisexp) {
         this.semexpedientePK = new SemexpedientePK(nroExpediente, indEjefisexp);
@@ -234,14 +354,6 @@ public class Semexpediente implements Serializable {
         this.fecIniexp = fecIniexp;
     }
 
-    public int getNroTitular() {
-        return nroTitular;
-    }
-
-    public void setNroTitular(int nroTitular) {
-        this.nroTitular = nroTitular;
-    }
-
     public String getObsExpediente() {
         return obsExpediente;
     }
@@ -256,14 +368,6 @@ public class Semexpediente implements Serializable {
 
     public void setIndEjefiscar(int indEjefiscar) {
         this.indEjefiscar = indEjefiscar;
-    }
-
-    public int getNroFuncionario() {
-        return nroFuncionario;
-    }
-
-    public void setNroFuncionario(int nroFuncionario) {
-        this.nroFuncionario = nroFuncionario;
     }
 
     public Date getFecAlta() {
@@ -296,14 +400,6 @@ public class Semexpediente implements Serializable {
 
     public void setIndPrioridad(String indPrioridad) {
         this.indPrioridad = indPrioridad;
-    }
-
-    public int getNroRepresentante() {
-        return nroRepresentante;
-    }
-
-    public void setNroRepresentante(int nroRepresentante) {
-        this.nroRepresentante = nroRepresentante;
     }
 
     public int getNroTarea() {
@@ -352,6 +448,15 @@ public class Semexpediente implements Serializable {
 
     public void setNroMesent(int nroMesent) {
         this.nroMesent = nroMesent;
+    }
+
+    //@XmlTransient
+    public List<Sedmovexp> getSedmovexpList() {
+        return sedmovexpList;
+    }
+
+    public void setSedmovexpList(List<Sedmovexp> sedmovexpList) {
+        this.sedmovexpList = sedmovexpList;
     }
 
     @Override

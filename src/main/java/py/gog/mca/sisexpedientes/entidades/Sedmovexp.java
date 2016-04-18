@@ -12,12 +12,14 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinColumns;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.persistence.Transient;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
@@ -37,7 +39,6 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "Sedmovexp.findByNroSecuencia", query = "SELECT s FROM Sedmovexp s WHERE s.nroSecuencia = :nroSecuencia"),
     @NamedQuery(name = "Sedmovexp.findByNroCarpeta", query = "SELECT s FROM Sedmovexp s WHERE s.nroCarpeta = :nroCarpeta"),
     @NamedQuery(name = "Sedmovexp.findByCodDepen", query = "SELECT s FROM Sedmovexp s WHERE s.codDepen = :codDepen"),
-    @NamedQuery(name = "Sedmovexp.findByIndEjefisexp", query = "SELECT s FROM Sedmovexp s WHERE s.indEjefisexp = :indEjefisexp"),
     @NamedQuery(name = "Sedmovexp.findByNroMesent", query = "SELECT s FROM Sedmovexp s WHERE s.nroMesent = :nroMesent"),
     @NamedQuery(name = "Sedmovexp.findByUsuAlta", query = "SELECT s FROM Sedmovexp s WHERE s.usuAlta = :usuAlta"),
     @NamedQuery(name = "Sedmovexp.findByNroTarea", query = "SELECT s FROM Sedmovexp s WHERE s.nroTarea = :nroTarea"),
@@ -48,21 +49,26 @@ import javax.xml.bind.annotation.XmlRootElement;
 public class Sedmovexp implements Serializable {
 
     private static final long serialVersionUID = 1L;
+
     @Id
     @Basic(optional = false)
     @NotNull
     @Column(name = "nro_secuencia")
     private Integer nroSecuencia;
 
-    @Basic(optional = false)
-    @NotNull
-    @Column(name = "nro_expediente")
-    private int nroExpediente;
-
-    @Basic(optional = false)
-    @NotNull
-    @Column(name = "ind_ejefisexp")
-    private int indEjefisexp;
+    /*   @Basic(optional = false)
+     @NotNull
+     @Column(name = "nro_expediente")
+     private int nroExpediente;
+     @Basic(optional = false)
+     @NotNull
+     @Column(name = "ind_ejefisexp")
+     private int indEjefisexp;*/
+    @JoinColumns({
+        @JoinColumn(name = "nro_expediente", referencedColumnName = "nro_expediente"),
+        @JoinColumn(name = "ind_ejefisexp", referencedColumnName = "ind_ejefisexp")})
+    @ManyToOne
+    private Semexpediente nroExpediente;
 
     @Basic(optional = false)
     @NotNull
@@ -98,6 +104,11 @@ public class Sedmovexp implements Serializable {
     @Column(name = "nro_funcionario")
     private int nroFuncionario;
 
+    //@JoinColumn(name = "nro_funcionario", referencedColumnName = "nro_persona")
+    //@ManyToOne(optional = false)
+    @Transient
+    private Sempersona nroFuncionarioJava;
+
     @Basic(optional = false)
     @NotNull
     @Column(name = "nro_tarea")
@@ -126,18 +137,33 @@ public class Sedmovexp implements Serializable {
         this.nroSecuencia = nroSecuencia;
     }
 
-    public Sedmovexp(Integer nroSecuencia, Date fecAlta, int nroFuncionario, Sebtipmov nroTipmov, int nroCarpeta, Semdepen codDepen, int indEjefisexp, int nroMesent, String usuAlta, int nroTarea, int nroExpediente, Date fecMovexp, Sebestexp nroEstexp, int indEjefiscar) {
+    /*public Sedmovexp(Integer nroSecuencia, Date fecAlta, int nroFuncionario, Sebtipmov nroTipmov, int nroCarpeta, Semdepen codDepen, int indEjefisexp, int nroMesent, String usuAlta, int nroTarea, int nroExpediente, Date fecMovexp, Sebestexp nroEstexp, int indEjefiscar) {
+     this.nroSecuencia = nroSecuencia;
+     this.fecAlta = fecAlta;
+     this.nroFuncionario = nroFuncionario;
+     this.nroTipmov = nroTipmov;
+     this.nroCarpeta = nroCarpeta;
+     this.codDepen = codDepen;
+     this.indEjefisexp = indEjefisexp;
+     this.nroExpediente = nroExpediente;
+     this.nroMesent = nroMesent;
+     this.usuAlta = usuAlta;
+     this.nroTarea = nroTarea;        
+     this.fecMovexp = fecMovexp;
+     this.nroEstexp = nroEstexp;
+     this.indEjefiscar = indEjefiscar;
+     }*/
+    public Sedmovexp(Integer nroSecuencia, Date fecAlta, int nroFuncionario, Sebtipmov nroTipmov, int nroCarpeta, Semdepen codDepen, int nroMesent, String usuAlta, int nroTarea, Semexpediente nroExpediente, Date fecMovexp, Sebestexp nroEstexp, int indEjefiscar) {
         this.nroSecuencia = nroSecuencia;
         this.fecAlta = fecAlta;
         this.nroFuncionario = nroFuncionario;
         this.nroTipmov = nroTipmov;
         this.nroCarpeta = nroCarpeta;
         this.codDepen = codDepen;
-        this.indEjefisexp = indEjefisexp;
+        this.nroExpediente = nroExpediente;
         this.nroMesent = nroMesent;
         this.usuAlta = usuAlta;
         this.nroTarea = nroTarea;
-        this.nroExpediente = nroExpediente;
         this.fecMovexp = fecMovexp;
         this.nroEstexp = nroEstexp;
         this.indEjefiscar = indEjefiscar;
@@ -157,6 +183,14 @@ public class Sedmovexp implements Serializable {
 
     public void setNroFuncionario(int nroFuncionario) {
         this.nroFuncionario = nroFuncionario;
+    }
+
+    public Sempersona getNroFuncionarioJava() {
+        return nroFuncionarioJava;
+    }
+
+    public void setNroFuncionarioJava(Sempersona nroFuncionarioJava) {
+        this.nroFuncionarioJava = nroFuncionarioJava;
     }
 
     public Sebtipmov getNroTipmov() {
@@ -191,12 +225,27 @@ public class Sedmovexp implements Serializable {
         this.codDepen = codDepen;
     }
 
-    public int getIndEjefisexp() {
-        return indEjefisexp;
+    /*public int getNroExpediente() {
+     return nroExpediente;
+     }
+
+     public void setNroExpediente(int nroExpediente) {
+     this.nroExpediente = nroExpediente;
+     }
+
+     public int getIndEjefisexp() {
+     return indEjefisexp;
+     }
+
+     public void setIndEjefisexp(int indEjefisexp) {
+     this.indEjefisexp = indEjefisexp;
+     }*/
+    public Semexpediente getNroExpediente() {
+        return nroExpediente;
     }
 
-    public void setIndEjefisexp(int indEjefisexp) {
-        this.indEjefisexp = indEjefisexp;
+    public void setNroExpediente(Semexpediente nroExpediente) {
+        this.nroExpediente = nroExpediente;
     }
 
     public int getNroMesent() {
@@ -221,14 +270,6 @@ public class Sedmovexp implements Serializable {
 
     public void setNroTarea(int nroTarea) {
         this.nroTarea = nroTarea;
-    }
-
-    public int getNroExpediente() {
-        return nroExpediente;
-    }
-
-    public void setNroExpediente(int nroExpediente) {
-        this.nroExpediente = nroExpediente;
     }
 
     public Date getFecMovexp() {

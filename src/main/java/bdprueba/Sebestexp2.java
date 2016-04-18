@@ -28,22 +28,26 @@ import javax.xml.bind.annotation.XmlTransient;
 @Table(name = "sebestexp")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "Sebestexp.findAll", query = "SELECT s FROM Sebestexp s"),
-    @NamedQuery(name = "Sebestexp.findByNroEstexp", query = "SELECT s FROM Sebestexp s WHERE s.nroEstexp = :nroEstexp"),
-    @NamedQuery(name = "Sebestexp.findByDesEstexp", query = "SELECT s FROM Sebestexp s WHERE s.desEstexp = :desEstexp")})
+    @NamedQuery(name = "Sebestexp2.findAll", query = "SELECT s FROM Sebestexp2 s"),
+    @NamedQuery(name = "Sebestexp2.findByNroEstexp", query = "SELECT s FROM Sebestexp2 s WHERE s.nroEstexp = :nroEstexp"),
+    @NamedQuery(name = "Sebestexp2.findByDesEstexp", query = "SELECT s FROM Sebestexp2 s WHERE s.desEstexp = :desEstexp")})
 public class Sebestexp2 implements Serializable {
 
     private static final long serialVersionUID = 1L;
+    
     @Id
     @Basic(optional = false)
     @NotNull
     @Column(name = "nro_estexp")
     private Integer nroEstexp;
+    
     @Size(max = 2147483647)
     @Column(name = "des_estexp")
     private String desEstexp;
+    
     @OneToMany(mappedBy = "nroEstexp")
     private List<Semexpediente2> semexpedienteList;
+    
     @OneToMany(mappedBy = "nroEstexp")
     private List<Sedmovexp2> sedmovexpList;
 

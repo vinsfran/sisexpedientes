@@ -24,6 +24,7 @@ public class SempersonaPK implements Serializable {
     @Size(min = 1, max = 20)
     @Column(name = "nro_docide")
     private String nroDocide;
+
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 10)
@@ -82,5 +83,5 @@ public class SempersonaPK implements Serializable {
     public String toString() {
         return "py.gog.mca.sisexpedientes.entidades.SempersonaPK[ nroDocide=" + nroDocide + ", indTipdocide=" + indTipdocide + " ]";
     }
-    
+
 }

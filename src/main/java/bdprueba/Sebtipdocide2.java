@@ -29,9 +29,9 @@ import javax.xml.bind.annotation.XmlTransient;
 @Table(name = "sebtipdocide")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "Sebtipdocide.findAll", query = "SELECT s FROM Sebtipdocide s"),
-    @NamedQuery(name = "Sebtipdocide.findByIndTipdocide", query = "SELECT s FROM Sebtipdocide s WHERE s.indTipdocide = :indTipdocide"),
-    @NamedQuery(name = "Sebtipdocide.findByDesTipdocide", query = "SELECT s FROM Sebtipdocide s WHERE s.desTipdocide = :desTipdocide")})
+    @NamedQuery(name = "Sebtipdocide2.findAll", query = "SELECT s FROM Sebtipdocide2 s"),
+    @NamedQuery(name = "Sebtipdocide2.findByIndTipdocide", query = "SELECT s FROM Sebtipdocide2 s WHERE s.indTipdocide = :indTipdocide"),
+    @NamedQuery(name = "Sebtipdocide2.findByDesTipdocide", query = "SELECT s FROM Sebtipdocide2 s WHERE s.desTipdocide = :desTipdocide")})
 public class Sebtipdocide2 implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -41,9 +41,11 @@ public class Sebtipdocide2 implements Serializable {
     @Size(min = 1, max = 2147483647)
     @Column(name = "ind_tipdocide")
     private String indTipdocide;
+    
     @Size(max = 2147483647)
     @Column(name = "des_tipdocide")
     private String desTipdocide;
+    
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "indTipdocide")
     private List<Sempersona2> sempersonaList;
 

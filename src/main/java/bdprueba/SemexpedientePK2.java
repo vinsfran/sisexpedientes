@@ -22,6 +22,7 @@ public class SemexpedientePK2 implements Serializable {
     @NotNull
     @Column(name = "nro_expediente")
     private int nroExpediente;
+    
     @Basic(optional = false)
     @NotNull
     @Column(name = "ind_ejefisexp")

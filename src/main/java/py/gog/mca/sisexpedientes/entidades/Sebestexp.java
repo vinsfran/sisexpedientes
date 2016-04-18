@@ -35,16 +35,24 @@ import javax.xml.bind.annotation.XmlTransient;
 public class Sebestexp implements Serializable {
 
     private static final long serialVersionUID = 1L;
-    @Basic(optional = false)
-    @NotNull
-    @Size(min = 1, max = 60)
-    @Column(name = "des_estexp")
-    private String desEstexp;
+
     @Id
     @Basic(optional = false)
     @NotNull
     @Column(name = "nro_estexp")
     private Integer nroEstexp;
+
+    @Basic(optional = false)
+    @NotNull
+    @Size(min = 1, max = 60)
+    @Column(name = "des_estexp")
+    private String desEstexp;
+
+    @OneToMany(mappedBy = "nroEstexp")
+    private List<Semexpediente> semexpedienteList;
+
+    @OneToMany(mappedBy = "nroEstexp")
+    private List<Sedmovexp> sedmovexpList;
 
     public Sebestexp() {
     }
@@ -72,6 +80,22 @@ public class Sebestexp implements Serializable {
 
     public void setNroEstexp(Integer nroEstexp) {
         this.nroEstexp = nroEstexp;
+    }
+
+    public List<Semexpediente> getSemexpedienteList() {
+        return semexpedienteList;
+    }
+
+    public void setSemexpedienteList(List<Semexpediente> semexpedienteList) {
+        this.semexpedienteList = semexpedienteList;
+    }
+
+    public List<Sedmovexp> getSedmovexpList() {
+        return sedmovexpList;
+    }
+
+    public void setSedmovexpList(List<Sedmovexp> sedmovexpList) {
+        this.sedmovexpList = sedmovexpList;
     }
 
     @Override
