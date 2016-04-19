@@ -69,6 +69,7 @@ public class SisExpedientesWS {
     @Consumes(value = {MediaType.APPLICATION_JSON})
     @Produces(value = {MediaType.APPLICATION_JSON})
     public List<Sedmovexp> listarMovimientosPorNroCarpetaEjerFiscar(String json) throws JSONException, ParseException {
+        System.out.println("JSON: " + json);
         JSONObject jsonObject = new JSONObject(json);
         return doListarMovimientosPorNroCarpetaEjerFiscar(jsonObject.getInt("nroCarpeta"), jsonObject.getInt("indEjefiscar"));
     }
