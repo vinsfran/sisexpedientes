@@ -1,6 +1,7 @@
 package py.gog.mca.sisexpedientes.webservices;
 
 import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.List;
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
@@ -105,8 +106,14 @@ public class SisExpedientesWS {
     @Consumes(value = {MediaType.APPLICATION_JSON})
     @Produces(value = {MediaType.APPLICATION_JSON})
     public String enviarCorreo(String json) throws JSONException, ParseException {
+        SimpleDateFormat diaMesAnio = new SimpleDateFormat("dd/MM/yyyy");
         JSONObject jsonObject = new JSONObject(json);
-        String asunto = "RESPUESTA SOBRE EXPEDIENTE " + jsonObject.getString("mail");
+        String mail = jsonObject.getString("mail");
+        Integer nroCarpeta = jsonObject.getInt("nroCarpeta");
+        Integer indEjefiscar = jsonObject.getInt("indEjefiscar");
+        listaMovExpedientes = doListarMovimientosPorNroCarpetaEjerFiscar(nroCarpeta, indEjefiscar);
+
+        String asunto = "RESPUESTA SOBRE EXPEDIENTE: " + nroCarpeta + "/" + indEjefiscar;
         String mensaje = "<html>"
                 + "     <head>"
                 + "         <meta charset=\"UTF-8\">"
@@ -118,19 +125,77 @@ public class SisExpedientesWS {
                 + "       </div> "
                 + "       <div> "
                 + "             <p>"
-                + "                Estimado/a: <i>" + jsonObject.getString("mail") + " " + jsonObject.getString("mail") + "</i>"
+                + "                Estimado/a: <i>" + mail + "</i>"
                 + "             </p> "
                 + "             <p>"
-                + "                Le informamos que su reclamo sobre "
-                + "                <strong>" + jsonObject.getString("mail") + "</strong>, "
-                + "                realizado en fecha "
-                + "                <strong>" + jsonObject.getString("mail") + "</strong> "
-                + "                fue ingresado a nuestro sistema de reclamos, se encuentra en la "
-                + "                <strong>" + jsonObject.getString("mail") + "</strong>, "
-                + "                y en la brevedad recibira informes sobre la situación del mismo."
+                + "                Le informamos que su expediente se encuentra en la siguiente situación: "
                 + "             </p> "
+                + "<table align=\"center\" cellpadding=\"0\" cellspacing=\"0\">\n"
+                + "                <thead >\n"
+                + "                    <tr style=\"background-color: #699f39\" >\n"
+                + "                        <th style=\"color: #ffffff\" colspan=\"3\">\n"
+                + "                            <span>Resultado de la busqueda</span>\n"
+                + "                        </th>\n"
+                + "                    </tr>\n"
+                + "                    <tr>\n"
+                + "                        <td colspan=\"3\">\n"
+                + "                            <table width=\"100%\" border=\"0\">\n"
+                + "                                <tr>\n"
+                + "                                    <td><strong>N° Exp. / Año:&nbsp;</strong></td>\n"
+                + "                                    <td>" + listaMovExpedientes.get(0).getNroExpediente().getNroCarpeta() + " / " + listaMovExpedientes.get(0).getNroExpediente().getIndEjefiscar() + "</td>\n"
+                + "                                </tr>\n"
+                + "                                <tr>\n"
+                + "                                    <td><strong>Nro. Documento:&nbsp;</strong></td>\n"
+                + "                                    <td>" + listaMovExpedientes.get(0).getNroExpediente().getNroTitular().getNroDocide() + "</td>\n"
+                + "                                </tr>\n"
+                + "                                <tr>\n"
+                + "                                    <td><strong>Recurrente:&nbsp;</strong></td>\n"
+                + "                                    <td>" + listaMovExpedientes.get(0).getNroExpediente().getNroTitular().getDesPersona() + "</td>\n"
+                + "                                </tr>\n"
+                + "                                <tr>\n"
+                + "                                    <td><strong>Des. Exp.:&nbsp;</strong></td>\n"
+                + "                                    <td>" + listaMovExpedientes.get(0).getNroExpediente().getDesExpediente() + "</td>\n"
+                + "                                </tr>\n"
+                + "                                <tr>\n"
+                + "                                    <td><strong>Estado:&nbsp;</strong></td>\n"
+                + "                                    <td>" + listaMovExpedientes.get(0).getNroExpediente().getNroEstexp().getDesEstexp() + "</td>\n"
+                + "                                </tr>\n"
+                + "                            </table>\n"
+                + "                        </td>\n"
+                + "                    </tr>\n"
+                + "                    <tr style=\"background-color: #699f39\" >\n"
+                + "                        <th style=\"color: #ffffff\" colspan=\"3\">\n"
+                + "                            <span>Movimientos del Expediente</span>\n"
+                + "                        </th>\n"
+                + "                    </tr>\n"
+                + "                    <tr style=\"background-color: #8bc34a\">\n"
+                + "                        <th style=\"color: #ffffff\">\n"
+                + "                            <span>Dependencia</span>\n"
+                + "                        </th>\n"
+                + "                        <th style=\"color: #ffffff\">\n"
+                + "                            <span>Movimiento</span>\n"
+                + "                        </th>\n"
+                + "                        <th style=\"color: #ffffff\">\n"
+                + "                            <span>Fecha</span>\n"
+                + "                        </th>\n"
+                + "                    </tr>\n"
+                + "                </thead>\n"
+                + "                <tbody >\n";
+
+        for (int i = 0; i < listaMovExpedientes.size(); i++) {
+            mensaje = mensaje
+                    + " <tr >\n"
+                    + "   <td >" + listaMovExpedientes.get(i).getCodDepen().getDesDepen() + "&nbsp;</td>\n"
+                    + "   <td>" + listaMovExpedientes.get(i).getNroTipmov().getDesTipmov() + "&nbsp;</td>\n"
+                    + "   <td >" + diaMesAnio.format(listaMovExpedientes.get(i).getFecMovexp()) + "&nbsp;</td>\n"
+                    + " </tr>\n";
+        }
+
+        mensaje = mensaje
+                + "                </tbody>\n"
+                + "            </table>"
                 + "             <p>"
-                + "                Gracias por utilizar al Sistema de Reclamos de la Municipalidad de Asunción."
+                + "                Gracias por utilizar el Sistema de Consultas de Expedientes de la Municipalidad de Asunción."
                 + "             </p>"
                 + "        </div>"
                 + "     </body>"

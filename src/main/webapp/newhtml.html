@@ -1,90 +1,94 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml">
+<html>
     <head>
-        <title>Consulta de Expedientes</title>
+        <meta charset="UTF-8"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
     </head>
-    <body>
-        <div style="border: 0px">
-            <div >
-                <div align="center">
-                    <table>
-                        <tbody>
-                            <tr>
-                                <td>
-                                    <img src="/expediente/faces/javax.faces.resource/logo.png?ln=img" />
-                                </td>
-                                <td>                            
-                                    <h1> Sistema de Consulta de Expedientes</h1>
-                                    <h2> Dirección de Recaudaciones</h2></td>
-                            </tr>
-                        </tbody>
-                    </table>
-
-                </div>
-            </div>
-        </div>
-        <div style="border: 0px">
-            <div >
-                <div align="center">
-                    <table>
-                        <tbody>
-                            <tr>
-                                <td>Cedula(*):</td>
-                                <td>3333333</td>
-                            </tr>
-                            <tr>
-                                <td>Tipo de Documento(*):</td>
-                                <td><div id="formPersona:tipoDoc" class="ui-selectonemenu ui-widget ui-state-default ui-corner-all" style="width:100%;"><div class="ui-helper-hidden-accessible"><input id="formPersona:tipoDoc_focus" name="formPersona:tipoDoc_focus" type="text" autocomplete="off" role="combobox" aria-haspopup="true" aria-expanded="false" /></div><div class="ui-helper-hidden-accessible"><select id="formPersona:tipoDoc_input" name="formPersona:tipoDoc_input" tabindex="-1"><option value="CIPN">CEDULA DE IDENTIDAD POLICIAL</option><option value="RUC">RUC</option></select></div><label id="formPersona:tipoDoc_label" class="ui-selectonemenu-label ui-inputfield ui-corner-all">&nbsp;</label><div class="ui-selectonemenu-trigger ui-state-default ui-corner-right"><span class="ui-icon ui-icon-triangle-1-s ui-c"></span></div><div id="formPersona:tipoDoc_panel" class="ui-selectonemenu-panel ui-widget ui-widget-content ui-corner-all ui-helper-hidden ui-shadow"><div class="ui-selectonemenu-items-wrapper" style="height:auto"><ul id="formPersona:tipoDoc_items" class="ui-selectonemenu-items ui-selectonemenu-list ui-widget-content ui-widget ui-corner-all ui-helper-reset" role="listbox"><li class="ui-selectonemenu-item ui-selectonemenu-list-item ui-corner-all" data-label="CEDULA DE IDENTIDAD POLICIAL" tabindex="-1" role="option">CEDULA DE IDENTIDAD POLICIAL</li><li class="ui-selectonemenu-item ui-selectonemenu-list-item ui-corner-all" data-label="RUC" tabindex="-1" role="option">RUC</li></ul></div></div></div><script id="formPersona:tipoDoc_s" type="text/javascript">$(function () {
-                                        PrimeFaces.cw("SelectOneMenu", "widget_formPersona_tipoDoc", {id: "formPersona:tipoDoc", effect: "none"});
-                                    });</script></td>
-                            </tr>
-                            <tr>
-                                <td><button id="formPersona:crear" name="formPersona:crear" class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-icon-left" onclick="PrimeFaces.ab({s: & quot; formPersona:crear & quot; }); return false;" style="margin-right:10px" title="Buscar" type="submit"><span class="ui-button-icon-left ui-icon ui-c fa fa-check-square-o"></span><span class="ui-button-text ui-c">Buscar</span></button><script id="formPersona:crear_s" type="text/javascript">PrimeFaces.cw("CommandButton", "widget_formPersona_crear", {id: "formPersona:crear"});</script></td>
-                            </tr>
-                        </tbody>
-                        </table>
-                        <table cellpadding="5">
-                            <tbody>
-                                <tr>
-                                    <td><label style="font-weight:bold; color: #ff0000; font-size: small">Tenga en cuenta que los campos con * son obligatorios</label></td>
-                                </tr>
-                            </tbody>
-                        </table>
-                </div>
-            </div>
-            <script id="formPersona:j_idt18_s" type="text/javascript">PrimeFaces.cw("Panel", "widget_formPersona_j_idt18", {id: "formPersona:j_idt18"});</script><input type="hidden" name="javax.faces.ViewState" id="j_id1:javax.faces.ViewState:0" value="-415433711568968768:-7373648753116721542" autocomplete="off" />
-            </form>
-        </div>
-        </div>
-        </div>
-        <div id="j_idt25" class="ui-layout-unit ui-widget ui-widget-content ui-corner-all ui-layout-south" style="border: 0px"><div class="ui-layout-unit-content ui-widget-content">
-                <table width="50%" border="0" align="center" cellpadding="0" cellspacing="0">
+    <body style="background-color: #ffffff">
+        <div style="text-align: center;">
+            <img alt="logo" src="http://appserver.mca.gov.py/reclamosmca/faces/resources/images/logo_3.jpg">
+        </div> 
+        <div style="text-align: center;"> 
+            <p>
+                Estimado/a: <i> vinsfran@gmail.com </i>
+            </p>
+                Le informamos que su expediente se encuentra en la siguiente situación:
+            </p> 
+            <table align="center" cellpadding="0" cellspacing="0">
+                <thead >
+                    <tr style="background-color: #699f39" >
+                        <th style="color: #ffffff" colspan="3">
+                            <span>Resultado de la busqueda</span>
+                        </th>
+                    </tr>
                     <tr>
-                        <td width="45%">
-                            <p align="left">
-                                <i class="fa fa-check-square-o"></i> Dirección Gral. de Planificación y Sistemas
-                                <br />
-                                <i class="fa fa-check-square-o"></i> Dirección de Informática y Organización
-                                <br />
-                                <i class="fa fa-check-square-o"></i> Departamento de Sistemas
-                                <br />
-                                <i class="fa fa-check-square-o"></i> Un. de Desarrollo y Mantenimiento de Sistemas
-                                <br />
-                                <i class="fa fa-check-square-o"></i> Ing. Vicente Insfrán C.
-                            </p>                                
-                        </td>
-                        <td width="55%">
-                            <p align="left">
-                                <i class="fa fa-copyright"></i> 2016 <a target="_blank" href="http://www.mca.gov.py/" title="Municipalidad de Asunción">Municipalidad de Asunción</a>. Todos los derechos reservados.
-                                <br />
-                                <i class="fa fa-map-marker"></i> Avda. Mcal. López 5556 esq. Cap. Bueno
-                                <br />
-                                <i class="fa fa-phone-square"></i> +595 21 663 311/20
-                                <br />
-                                Asunción - Paraguay
-                            </p>                                
+                        <td colspan="3">
+                            <table width="100%" border="0">
+                                <tr>
+                                    <td><strong>N° Exp. / Año:&nbsp;</strong></td>
+                                    <td colspan="2">9737 / 2016</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Nro. Documento:&nbsp;</strong></td>
+                                    <td>3834015</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Recurrente:&nbsp;</strong></td>
+                                    <td colspan="2">VICENCIO GUANES, BRUNO IVAN FABRIC</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Des. Exp.:&nbsp;</strong></td>
+                                    <td colspan="2">CONSTANCIA PARA LICENCIA COMERCIAL</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Estado:&nbsp;</strong></td>
+                                    <td colspan="2">EN TRAMITE</td>
+                                </tr>
+                            </table>
                         </td>
                     </tr>
-                </table></div></div></body>
+                    <tr style="background-color: #699f39" >
+                        <th style="color: #ffffff" colspan="3">
+                            <span>Movimientos del Expediente</span>
+                        </th>
+                    </tr>
+                    <tr style="background-color: #8bc34a">
+                        <th style="color: #ffffff">
+                            <span>Dependencia</span>
+                        </th>
+                        <th style="color: #ffffff">
+                            <span>Movimiento</span>
+                        </th>
+                        <th style="color: #ffffff">
+                            <span>Fecha</span>
+                        </th>
+                    </tr>
+                </thead>
+                <tbody >
+                    <tr >
+                        <td >DIRECCION - SECRETARIA GENERAL&nbsp;</td>
+                        <td>CREACION DE EXPEDIENTE&nbsp;</td>
+                        <td >28/03/2016&nbsp;</td>
+                    </tr>
+                    <tr>
+                        <td>DIRECCION - RECAUDACIONES&nbsp;</td>
+                        <td>MOVIMIENTO DE EXPEDIENTE&nbsp;</td>
+                        <td>29/03/2016&nbsp;</td>
+                    </tr>
+                    <tr>
+                        <td>DEPARTAMENTO - PATENTES&nbsp;</td>
+                        <td>MOVIMIENTO DE EXPEDIENTE&nbsp;</td>
+                        <td>30/03/2016&nbsp;</td>
+                    </tr>
+                    <tr>
+                        <td>DEPARTAMENTO - ATENCION AL CONTRIBUYENTE&nbsp;</td>
+                        <td>MOVIMIENTO DE EXPEDIENTE&nbsp;</td>
+                        <td>30/03/2016&nbsp;</td>
+                    </tr>
+                </tbody>
+            </table>
+            <p>
+                Gracias por utilizar al Sistema de Consultas de Expedientes de la Municipalidad de Asunción.
+            </p>
+        </div>
+    </body>
 </html>
