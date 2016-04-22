@@ -102,7 +102,7 @@ public class SeManejadorPrincipalMb implements Serializable {
                 //listaExpedientes = semexpedienteCrud.listarPorNroTitular(sempersona.getNroPersona());
                 //sempersona.setSemexpedienteListNroTitular(semexpedienteCrud.listarPorNroTitular(sempersona.getNroPersona()));
                 listaExpedientes = sempersona.getSemexpedienteListNroTitular();
-                if (listaExpedientes == null) {
+                if (listaExpedientes.isEmpty()) {
                     FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "No tiene expedientes", ""));
                     return "index";
                 } else if (listaExpedientes.size() > 1) {

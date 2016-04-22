@@ -45,12 +45,14 @@ public class SempersonaCrud {
             return null;
         } else {
             List<Sempersona> listaPersonas = q.getResultList();
-            for (Sempersona listaPersona : listaPersonas) {
+           /* for (Sempersona listaPersona : listaPersonas) {
                 listaPersona.setSemexpedienteListNroTitular(listarExpedientesPorNroPersona(listaPersona.getNroPersona()));
-                for(int i=0; i < listaPersona.getSemexpedienteListNroTitular().size(); i++){
-                    listaPersona.getSemexpedienteListNroTitular().get(i).setSedmovexpList(listarMovimientosExpedientePorNroCarpetaEjerFiscal(listaPersona.getSemexpedienteListNroTitular().get(i).getNroCarpeta(), listaPersona.getSemexpedienteListNroTitular().get(i).getIndEjefiscar()));
+                if (listaPersona.getSemexpedienteListNroTitular() != null) {
+                    for (int i = 0; i < listaPersona.getSemexpedienteListNroTitular().size(); i++) {
+                        listaPersona.getSemexpedienteListNroTitular().get(i).setSedmovexpList(listarMovimientosExpedientePorNroCarpetaEjerFiscal(listaPersona.getSemexpedienteListNroTitular().get(i).getNroCarpeta(), listaPersona.getSemexpedienteListNroTitular().get(i).getIndEjefiscar()));
+                    }
                 }
-            }
+            }*/
             return listaPersonas;
         }
     }
@@ -79,33 +81,33 @@ public class SempersonaCrud {
 
     }
 
-    @SuppressWarnings("unchecked")
-    private List<Semexpediente> listarExpedientesPorNroPersona(Integer nroTitular) {
-        StringBuilder jpql = new StringBuilder();
-        jpql.append("SELECT e ");
-        jpql.append("FROM Semexpediente e ");
-        jpql.append("WHERE e.nroTitular.nroPersona = :paramNroTitular ");
-        //jpql.append("WHERE e.persona.nombre LIKE '%:paramNombre%'");
-        Query q = em.createQuery(jpql.toString());
-        q.setParameter("paramNroTitular", nroTitular);
-        if (q.getResultList().isEmpty()) {
-            return null;
-        } else {
-            return q.getResultList();
-        }
-    }
-    
-        @SuppressWarnings("unchecked")
-    private List<Sedmovexp> listarMovimientosExpedientePorNroCarpetaEjerFiscal(Integer nroCarpeta, Integer indEjefiscar) {
-        StringBuilder jpql = new StringBuilder();
-        jpql.append("SELECT e ");
-        jpql.append("FROM Sedmovexp e ");
-        jpql.append("WHERE e.nroCarpeta = :paramNroCarpeta ");
-        jpql.append("AND e.indEjefiscar = :paramIndEjefiscar ");
-        jpql.append("ORDER BY e.fecAlta");
-        Query q = em.createQuery(jpql.toString());
-        q.setParameter("paramNroCarpeta", nroCarpeta);
-        q.setParameter("paramIndEjefiscar", indEjefiscar);
-        return q.getResultList();
-    }
+//    @SuppressWarnings("unchecked")
+//    private List<Semexpediente> listarExpedientesPorNroPersona(Integer nroTitular) {
+//        StringBuilder jpql = new StringBuilder();
+//        jpql.append("SELECT e ");
+//        jpql.append("FROM Semexpediente e ");
+//        jpql.append("WHERE e.nroTitular.nroPersona = :paramNroTitular ");
+//        //jpql.append("WHERE e.persona.nombre LIKE '%:paramNombre%'");
+//        Query q = em.createQuery(jpql.toString());
+//        q.setParameter("paramNroTitular", nroTitular);
+//        if (q.getResultList().isEmpty()) {
+//            return null;
+//        } else {
+//            return q.getResultList();
+//        }
+//    }
+
+//    @SuppressWarnings("unchecked")
+//    private List<Sedmovexp> listarMovimientosExpedientePorNroCarpetaEjerFiscal(Integer nroCarpeta, Integer indEjefiscar) {
+//        StringBuilder jpql = new StringBuilder();
+//        jpql.append("SELECT e ");
+//        jpql.append("FROM Sedmovexp e ");
+//        jpql.append("WHERE e.nroCarpeta = :paramNroCarpeta ");
+//        jpql.append("AND e.indEjefiscar = :paramIndEjefiscar ");
+//        jpql.append("ORDER BY e.fecAlta");
+//        Query q = em.createQuery(jpql.toString());
+//        q.setParameter("paramNroCarpeta", nroCarpeta);
+//        q.setParameter("paramIndEjefiscar", indEjefiscar);
+//        return q.getResultList();
+//    }
 }

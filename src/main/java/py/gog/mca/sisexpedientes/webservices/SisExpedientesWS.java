@@ -2,6 +2,7 @@ package py.gog.mca.sisexpedientes.webservices;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.List;
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
@@ -59,6 +60,23 @@ public class SisExpedientesWS {
     public List<Sempersona> listarPersonasPorNroDocideIndTipdocide(String json) throws JSONException, ParseException {
         JSONObject jsonObject = new JSONObject(json);
         return doListarPersonasPorNroDocideIndTipdocide(jsonObject.getString("nroDocide"), jsonObject.getString("indTipdocide"));
+    }
+
+    @POST
+    @Path(value = "/listarExpedientesPorNroDocideIndTipdocide")
+    @Consumes(value = {MediaType.APPLICATION_JSON})
+    @Produces(value = {MediaType.APPLICATION_JSON})
+    public List<Semexpediente> listarExpedientesPorNroDocideIndTipdocide(String json) throws JSONException, ParseException {
+        JSONObject jsonObject = new JSONObject(json);
+        listaPersonas = doListarPersonasPorNroDocideIndTipdocide(jsonObject.getString("nroDocide"), jsonObject.getString("indTipdocide"));
+        listaExpedientes = new ArrayList<>();
+        if(listaPersonas != null){
+            listaExpedientes = semexpedienteCrud.listarPorNroTitular(listaPersonas.get(0).getNroPersona());
+            if(listaExpedientes == null){
+                listaExpedientes = new ArrayList<>();
+            }
+        }
+        return listaExpedientes;
     }
 
     @POST
